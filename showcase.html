@@ -86,7 +86,7 @@
       <button class="act sub" id="btnSway">ゆらぎ ON/OFF</button>
     </div>
     <div id="readout">読み込み中…</div>
-    <div class="note">角度はファームと同じ「少しずつ寄せる」動きで再現。寸法は MECHANISM.md と CAD の実寸ベース。ケーブル：黒 = スマホ充電（L字アダプタから背面へ）、オレンジ = サーボ線。背面に回すと U字ループが見える。</div>
+    <div class="note">角度はファームと同じ「少しずつ寄せる」動きで再現。寸法は MECHANISM.md と CAD の実寸ベース。ケーブル：黒 = スマホ充電（L字アダプタから背面へ、パンは背面のU字ループ）、オレンジ破線 = チルトサーボ線（左頬板の中を通る隠し配線を透かして表示）。</div>
   </div>
 </div>
 
@@ -275,7 +275,7 @@ const PARTS = [
   { id: "deck", name: "パンデッキ", kind: "印刷", group: "pan", asmStep: 3, asmFrom: [0, 120, 0], shapes: shapesDeck(),
     spec: "Ø104×8 + 裏ハブ Ø30", fix: "サーボホーンと M2 共締め" },
   { id: "cheekL", name: "頬板（左）", kind: "印刷", group: "pan", asmStep: 4, asmFrom: [-110, 0, 0], shapes: shapesCheek(-1),
-    spec: "厚8×奥行32 + R12ボス、608ベアリング圧入", fix: "デッキへ M3 タッピング" },
+    spec: "厚8×奥行32 + R12ボス、608ベアリング圧入、内部チャンネル（サーボ線用）", fix: "デッキへ M3 タッピング" },
   { id: "cheekR", name: "頬板（右）", kind: "印刷", group: "pan", asmStep: 4, asmFrom: [110, 0, 0], shapes: shapesCheek(1),
     spec: "厚8×奥行32 + R12ボス、ホーン下穴 Ø1.8×4", fix: "デッキへ M3 タッピング / ホーンを M2" },
   { id: "backbox", name: "背面ボックス＋ホルダ", kind: "印刷", group: "tilt", asmStep: 5, asmFrom: [0, 60, 90], shapes: shapesBackBox(),
@@ -340,13 +340,15 @@ const CABLES = [
     ["P", [0, 72, -32]], ["P", [-6, 56, -40]], ["P", [-4, 47, -49]],
     ["B", [0, 34, -60]], ["B", [2, 16, -61]], ["B", [8, 1, -72]]] },
   { color: [230, 120, 50], t: 2.4, pts: [
-    ["T", [22, -2, -2]], ["T", [24, -24, -9.8]], ["T", [24, -48, -9.8]], ["T", [20, -59, -10]],
-    ["T", [12, -63, -15]], ["T", [4, -50, -20]],
-    ["P", [2, 64, -35]], ["P", [-14, 54, -42]], ["P", [-8, 47, -49]],
-    ["B", [-2, 32, -59]], ["B", [0, 28, -51.5]]] },
-  { color: [230, 120, 50], t: 2.4, pts: [
     ["B", [-5, 18, 6]], ["B", [-2, 10, -2]], ["B", [10, 12, -10]], ["B", [24, 15, -8]]] },
 ];
+// チルトサーボ線は隠し配線 (ボックス内 -> 中空ピボット -> 左頬板の内部チャンネル
+// -> デッキ裏の溝 -> 土台内) なので、破線で透かして描く
+const XRAY_CABLE = { color: "rgba(230,120,50,0.9)", pts: [
+  ["T", [22, -2, -2]], ["T", [10, 0, 0]], ["T", [-20, 0, 0]], ["T", [-31, 0, 0]],
+  ["P", [-36, 116, -13]], ["P", [-39, 116, -13]], ["P", [-39, 84, -13]], ["P", [-39, 54, -8]],
+  ["P", [-39, 47, 2]], ["P", [-28, 42, 2]], ["P", [-18, 41, 0]],
+  ["B", [-12, 32, -2]], ["B", [-2, 20, -8]], ["B", [24, 15, -8]]] };
 function cablePoint(frame, p) {
   if (frame === "B") return p;
   if (frame === "P") return rotY(p, -panA * Math.PI / 180);
@@ -393,6 +395,15 @@ function drawMain() {
   ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
   const view = { az, el, zoom, cx: w / 2, cy: h * 0.58 };
   const proj = renderScene(ctx, w, h, buildItems(), (p) => p, view, true);
+  // 隠し配線 (チルトサーボ線) を破線で透かして描く (動作モードのみ)
+  if (mode === "motion") {
+    const xr = XRAY_CABLE.pts.map(([f, p]) => proj(cablePoint(f, p)));
+    ctx.strokeStyle = XRAY_CABLE.color; ctx.lineWidth = 2.5; ctx.setLineDash([6, 4]);
+    ctx.beginPath();
+    ctx.moveTo(xr[0][0], xr[0][1]);
+    for (let i = 1; i < xr.length; i++) ctx.lineTo(xr[i][0], xr[i][1]);
+    ctx.stroke(); ctx.setLineDash([]);
+  }
   // スマホの顔
   const phone = partById("phone");
   if (partProgress(phone) > 0.9) {

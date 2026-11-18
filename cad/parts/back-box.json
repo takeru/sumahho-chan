@@ -139,20 +139,6 @@
    }
   },
   {
-   "command": "solid.box",
-   "params": {
-    "corner": [
-     15,
-     -10,
-     -60
-    ],
-    "height": 8,
-    "length": 14,
-    "operation": "cut",
-    "width": 5
-   }
-  },
-  {
    "command": "solid.cylinder",
    "params": {
     "base": [
@@ -184,20 +170,6 @@
    "command": "solid.box",
    "params": {
     "corner": [
-     15,
-     -10,
-     -52
-    ],
-    "length": 14,
-    "width": 9,
-    "height": 40.5,
-    "operation": "cut"
-   }
-  },
-  {
-   "command": "solid.box",
-   "params": {
-    "corner": [
      -4,
      -9,
      -62
@@ -205,6 +177,20 @@
     "length": 8,
     "width": 17,
     "height": 2.5,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     -33,
+     -5,
+     -5
+    ],
+    "length": 45,
+    "width": 10,
+    "height": 10,
     "operation": "cut"
    }
   }

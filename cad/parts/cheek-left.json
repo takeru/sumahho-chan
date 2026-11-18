@@ -87,6 +87,20 @@
     "height": 8,
     "operation": "cut"
    }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     1.75,
+     -1,
+     -68
+    ],
+    "length": 4.5,
+    "width": 6,
+    "height": 70,
+    "operation": "cut"
+   }
   }
  ]
 }

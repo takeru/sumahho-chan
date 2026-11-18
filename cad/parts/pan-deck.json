@@ -145,6 +145,33 @@
     "height": 6,
     "operation": "cut"
    }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     -39,
+     2,
+     -2
+    ],
+    "diameter": 7,
+    "height": 12,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     -40,
+     -0.5,
+     0
+    ],
+    "length": 22,
+    "width": 5,
+    "height": 2.5,
+    "operation": "cut"
+   }
   }
  ]
 }
