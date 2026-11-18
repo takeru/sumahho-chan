@@ -87,6 +87,62 @@
     "height": 8,
     "operation": "cut"
    }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     -1,
+     8,
+     0
+    ],
+    "diameter": 1.8,
+    "height": 6,
+    "operation": "cut",
+    "axis": "X"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     -1,
+     -8,
+     0
+    ],
+    "diameter": 1.8,
+    "height": 6,
+    "operation": "cut",
+    "axis": "X"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     -1,
+     0,
+     8
+    ],
+    "diameter": 1.8,
+    "height": 6,
+    "operation": "cut",
+    "axis": "X"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     -1,
+     0,
+     -8
+    ],
+    "diameter": 1.8,
+    "height": 6,
+    "operation": "cut",
+    "axis": "X"
+   }
   }
  ]
 }

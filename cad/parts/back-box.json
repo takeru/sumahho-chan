@@ -151,6 +151,34 @@
     "operation": "cut",
     "width": 5
    }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     20,
+     0,
+     14.25
+    ],
+    "diameter": 1.8,
+    "height": 3.5,
+    "operation": "cut",
+    "axis": "X"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     20,
+     0,
+     -14.25
+    ],
+    "diameter": 1.8,
+    "height": 3.5,
+    "operation": "cut",
+    "axis": "X"
+   }
   }
  ]
 }
