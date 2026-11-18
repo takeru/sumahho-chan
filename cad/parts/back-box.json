@@ -37,9 +37,9 @@
     "corner": [
      31.5,
      6.5,
-     -66
+     -52
     ],
-    "height": 101,
+    "height": 100,
     "length": 3.5,
     "width": 13,
     "operation": "join",
@@ -54,9 +54,9 @@
     "corner": [
      -35,
      6.5,
-     -66
+     -52
     ],
-    "height": 101,
+    "height": 100,
     "length": 3.5,
     "width": 13,
     "operation": "join",
@@ -71,9 +71,9 @@
     "corner": [
      -35,
      6.5,
-     -66
+     -57
     ],
-    "height": 6,
+    "height": 5,
     "length": 70,
     "width": 12,
     "operation": "join",
@@ -178,6 +178,34 @@
     "height": 3.5,
     "operation": "cut",
     "axis": "X"
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     15,
+     -10,
+     -52
+    ],
+    "length": 14,
+    "width": 9,
+    "height": 40.5,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     -4,
+     -9,
+     -62
+    ],
+    "length": 8,
+    "width": 17,
+    "height": 2.5,
+    "operation": "cut"
    }
   }
  ]

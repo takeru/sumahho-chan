@@ -168,6 +168,20 @@
     "operation": "cut",
     "width": 12
    }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     -7,
+     -53,
+     24
+    ],
+    "length": 14,
+    "width": 6,
+    "height": 8,
+    "operation": "cut"
+   }
   }
  ]
 }

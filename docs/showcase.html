@@ -228,8 +228,8 @@ function shapesDeck() {
 }
 function shapesCheek(sign) {
   const s = [];
-  boxInto(s, sign * 39, 83, -9, 8, 70, 32, C_BASE);         // 板 (軸高さ110まで)
-  cylXInto(s, sign * 39, 110, -13, 12, 8, C_BASE);          // ボス R12
+  boxInto(s, sign * 39, 88, -9, 8, 80, 32, C_BASE);         // 板 (軸高さ116まで)
+  cylXInto(s, sign * 39, 116, -13, 12, 8, C_BASE);          // ボス R12
   boxInto(s, sign * 39, 50, -9, 16, 4, 32, C_BASE);         // フット
   return s;
 }
@@ -239,7 +239,7 @@ function shapesBackBox() {
   boxInto(s, 0, 5, -9.9, 66, 120, 1.75, C_DARK);            // 背板
   boxInto(s, -33.25, 5, 12.9, 3.5, 120, 12.75, C_DARK);     // 保持アーム L
   boxInto(s, 33.25, 5, 12.9, 3.5, 120, 12.75, C_DARK);      // 保持アーム R
-  boxInto(s, 0, -58, 12.9, 66, 6, 12.75, C_DARK);           // 下レール
+  boxInto(s, 0, -54.5, 12.9, 66, 5, 12.75, C_DARK);         // 下レール (上面がスマホ下端)
   return s;
 }
 function shapesTiltServo() {
@@ -252,7 +252,7 @@ function shapesTiltServo() {
 }
 function shapesPhone() {
   const s = [];
-  boxInto(s, 0, 9, 13, 63, 138, 9.5, C_PHONE);              // Rakuten Hand (下端から60mmを掴む)
+  boxInto(s, 0, 17, 13, 63, 138, 9.5, C_PHONE);             // Rakuten Hand (下端から52mmを掴む)
   return s;
 }
 function shapesGauge() {
@@ -271,7 +271,7 @@ const PARTS = [
   { id: "panservo", name: "パンサーボ SG90", kind: "購入", group: "base", asmStep: 1, asmFrom: [0, 80, 0], shapes: shapesPanServo(),
     spec: "ボディ 22.5×12.2×22.5 / フランジ 32.2 / 軸ずれ +5.5", fix: "フランジをサドルに M2（長穴で個体差を吸収）" },
   { id: "shell", name: "土台シェル", kind: "印刷", group: "base", asmStep: 2, asmFrom: [0, 140, 0], alpha: 0.35, shapes: shapesShell(),
-    spec: "Ø104×H40、壁2、天面に Ø34 の穴", fix: "底板へ M3×4" },
+    spec: "Ø104×H40、壁2、天面に Ø34 の穴、背面にケーブル用スロット", fix: "底板へ M3×4" },
   { id: "deck", name: "パンデッキ", kind: "印刷", group: "pan", asmStep: 3, asmFrom: [0, 120, 0], shapes: shapesDeck(),
     spec: "Ø104×8 + 裏ハブ Ø30", fix: "サーボホーンと M2 共締め" },
   { id: "cheekL", name: "頬板（左）", kind: "印刷", group: "pan", asmStep: 4, asmFrom: [-110, 0, 0], shapes: shapesCheek(-1),
@@ -283,7 +283,7 @@ const PARTS = [
   { id: "tiltservo", name: "チルトサーボ MG90S", kind: "購入", group: "tilt", asmStep: 5, asmFrom: [100, 0, 0], shapes: shapesTiltServo(),
     spec: "背面ボックスに内蔵、保持トルク 2.2 kg·cm", fix: "ポケットに差し込み + 耳ネジ M2" },
   { id: "phone", name: "Rakuten Hand (P710)", kind: "購入", group: "tilt", asmStep: 6, asmFrom: [0, 110, 0], shapes: shapesPhone(),
-    spec: "63×138×9.5 / 134g、下端から60mmを掴む", fix: "アーム + 下レールで抱え込み" },
+    spec: "63×138×9.5 / 134g、下端から52mmを掴む", fix: "アーム + 下レールで抱え込み" },
   { id: "gauge", name: "フィットゲージ（試作）", kind: "印刷", group: "none", asmStep: 99, asmFrom: [0, 0, 0], shapes: shapesGauge(),
     spec: "104×34×6、サーボポケット +0.2/+0.4/+0.6 の当たり確認用", fix: "—" },
 ];
@@ -299,8 +299,8 @@ const ASM_STEPS = [
 ];
 
 // ---- 状態とモード ----
-const AXIS_H = 110, DECK_TOP = 48, GRIP = 60;
-const PHONE_M = 0.134, HOLDER_M = 0.064, CG_ALONG = 9, CG_PERP = 8;
+const AXIS_H = 116, DECK_TOP = 48, GRIP = 52;
+const PHONE_M = 0.134, HOLDER_M = 0.064, CG_ALONG = 17, CG_PERP = 8;
 let mode = "asm";
 let panA = 0, tiltA = 0, panT = 0, tiltT = 0;
 let gesture = null, gestureT0 = 0, sway = true, lastCmd = performance.now();
@@ -349,7 +349,7 @@ function drawMain() {
   // スマホの顔
   const phone = partById("phone");
   if (partProgress(phone) > 0.9) {
-    const fp = (x, y) => proj(groupTf([x, 9 + y, 13 + 9.5 / 2 + 0.3], phone, [0, 0, 0]));
+    const fp = (x, y) => proj(groupTf([x, 17 + y, 13 + 9.5 / 2 + 0.3], phone, [0, 0, 0]));
     const ex = fp(4.5, 30), ex0 = fp(0, 30);
     const eyeR = Math.max(1.5, Math.abs(ex[0] - ex0[0]));
     ctx.fillStyle = "#f5f5f5";

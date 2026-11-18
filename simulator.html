@@ -45,8 +45,8 @@
     <div id="readout">読み込み中…</div>
     <div class="note">
       寸法は MECHANISM.md v2 と同じ：土台は円 Ø104×40（Motion Base v1.2 の
-      実寸 75.4×24 が入る最小の円）、デッキ Ø104、チルト軸高110、
-      スマホ下端から60mmを掴む。土台の中は後ろにATOMスタック、中心にパンサーボ。
+      実寸 75.4×24 が入る最小の円）、デッキ Ø104、チルト軸高116、
+      スマホ下端から52mmを掴む（充電プラグのスペース確保のため 2026-11-19 に変更）。土台の中は後ろにATOMスタック、中心にパンサーボ。
       チルトサーボはスマホ背面のボックスに内蔵（頬板は受け軸だけ）。
       サーボ寸法はネットで入手した SG90 実モデル（cad/servo/）から測定：
       ボディ 22.5×12.2×22.5、フランジ 32.2、軸は中心から +5.5mm ずれる。
@@ -62,11 +62,11 @@
 // ---- 基本寸法 (MECHANISM.md v2) ----
 const BASE_D = 104, BASE_H = 40;   // 土台: 円 Ø104 (ユーザー希望で円に変更)
 const DECK_R = 52, DECK_TOP = 48;
-const AXIS_H = 110;
-const GRIP_FROM_BOTTOM = 60;
+const AXIS_H = 116;
+const GRIP_FROM_BOTTOM = 52;
 const PHONE_W = 63, PHONE_H = 138, PHONE_T = 9.5, PHONE_M = 0.134;
 const HOLDER_M = 0.064;   // ホルダ+背面ボックス+チルトサーボ込み
-const CG_ALONG = 9, CG_PERP = 8;
+const CG_ALONG = 17, CG_PERP = 8;
 const TORQUE_MG90S = 2.2, TORQUE_SG90 = 1.8;
 
 // ---- 簡易3D (Canvas 2D, 外部依存なし) ----
@@ -176,8 +176,8 @@ addCyl(0, 4 + 27.5, 0, 2.4, 4, C_DARK, "base");                             // �
 // ---- パン回転側 ----
 addCyl(0, 40.5, 0, 15, 7, C_DARK, "pan");                                   // デッキ裏ハブ
 addCyl(0, (BASE_H + DECK_TOP) / 2, 0, DECK_R, DECK_TOP - BASE_H, C_BASE, "pan"); // デッキ Ø104
-addBox(-39, (DECK_TOP + AXIS_H) / 2, -9, 8, AXIS_H - DECK_TOP, 32, C_BASE, "pan");  // 頬板L (厚8, 後ろ寄り)
-addBox(39, (DECK_TOP + AXIS_H) / 2, -9, 8, AXIS_H - DECK_TOP, 32, C_BASE, "pan");   // 頬板R (厚8, 後ろ寄り)
+addBox(-39, (DECK_TOP + AXIS_H + 12) / 2, -9, 8, AXIS_H - DECK_TOP + 12, 32, C_BASE, "pan");  // 頬板L (厚8, 後ろ寄り)
+addBox(39, (DECK_TOP + AXIS_H + 12) / 2, -9, 8, AXIS_H - DECK_TOP + 12, 32, C_BASE, "pan");   // 頬板R (厚8, 後ろ寄り)
 addCylX(-39, AXIS_H, -13, 12, 8, C_BASE, "pan");                            // 頬板L ボス (軸位置 z=-13)
 addCylX(39, AXIS_H, -13, 12, 8, C_BASE, "pan");                             // 頬板R ボス
 // ---- チルト回転側 (原点=チルト軸, スマホ中心面より13mm後ろ) ----
