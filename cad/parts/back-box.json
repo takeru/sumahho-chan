@@ -1,0 +1,156 @@
+{
+ "commands": [
+  {
+   "command": "solid.box",
+   "params": {
+    "body_name": "BackBox",
+    "corner": [
+     -33,
+     -9,
+     -60
+    ],
+    "height": 120,
+    "length": 66,
+    "width": 15.5
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     -33,
+     6.5,
+     -60
+    ],
+    "height": 120,
+    "length": 66,
+    "width": 1.75,
+    "operation": "join",
+    "targets": [
+     "BackBox"
+    ]
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     31.5,
+     6.5,
+     -66
+    ],
+    "height": 101,
+    "length": 3.5,
+    "width": 13,
+    "operation": "join",
+    "targets": [
+     "BackBox"
+    ]
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     -35,
+     6.5,
+     -66
+    ],
+    "height": 101,
+    "length": 3.5,
+    "width": 13,
+    "operation": "join",
+    "targets": [
+     "BackBox"
+    ]
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     -35,
+     6.5,
+     -66
+    ],
+    "height": 6,
+    "length": 70,
+    "width": 12,
+    "operation": "join",
+    "targets": [
+     "BackBox"
+    ]
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     7,
+     -6.3,
+     -11.45
+    ],
+    "height": 22.9,
+    "length": 26,
+    "operation": "cut",
+    "width": 12.6
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     23,
+     -6.5,
+     -16.5
+    ],
+    "height": 33,
+    "length": 3,
+    "operation": "cut",
+    "width": 13
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "axis": "X",
+    "base": [
+     28,
+     0,
+     0
+    ],
+    "diameter": 12,
+    "height": 10,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "axis": "X",
+    "base": [
+     -36,
+     0,
+     0
+    ],
+    "diameter": 8.2,
+    "height": 8,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     15,
+     -10,
+     -60
+    ],
+    "height": 8,
+    "length": 14,
+    "operation": "cut",
+    "width": 5
+   }
+  }
+ ]
+}

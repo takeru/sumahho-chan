@@ -1,0 +1,98 @@
+{
+ "commands": [
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     0,
+     0,
+     0
+    ],
+    "body_name": "PanDeck",
+    "diameter": 104,
+    "height": 8
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     0,
+     0,
+     -10
+    ],
+    "diameter": 30,
+    "height": 10,
+    "operation": "join",
+    "targets": [
+     "PanDeck"
+    ]
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     0,
+     0,
+     -11
+    ],
+    "diameter": 3.2,
+    "height": 22,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     10,
+     0,
+     -11
+    ],
+    "diameter": 2.2,
+    "height": 6,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     -10,
+     0,
+     -11
+    ],
+    "diameter": 2.2,
+    "height": 6,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     0,
+     10,
+     -11
+    ],
+    "diameter": 2.2,
+    "height": 6,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     0,
+     -10,
+     -11
+    ],
+    "diameter": 2.2,
+    "height": 6,
+    "operation": "cut"
+   }
+  }
+ ]
+}

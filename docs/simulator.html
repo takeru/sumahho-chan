@@ -1,0 +1,355 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>首の機構シミュレータ v3 — rakuten-hand agent</title>
+<style>
+  body { margin:0; font-family:sans-serif; background:#f4f4f2; color:#22303c; }
+  #app { display:flex; flex-wrap:wrap; }
+  #view { flex:1 1 420px; min-height:70vh; position:relative; }
+  #cv { position:absolute; inset:0; width:100%; height:100%; touch-action:none; }
+  #panel { flex:0 1 300px; padding:14px; box-sizing:border-box; }
+  #panel h2 { font-size:15px; margin:4px 0 10px; }
+  .row { margin:10px 0; }
+  label { font-size:13px; display:flex; justify-content:space-between; }
+  input[type=range] { width:100%; }
+  button { font-size:13px; padding:7px 10px; margin:2px; border:0; border-radius:8px;
+    background:#2b3a46; color:#fff; }
+  button.sub { background:#7a8794; }
+  #readout { font-size:13px; line-height:1.7; background:#fff; border-radius:10px;
+    padding:10px 12px; margin-top:10px; }
+  .ok { color:#1d7a3a; } .warn { color:#c0392b; }
+  .note { font-size:12px; color:#667; margin-top:10px; line-height:1.6; }
+</style>
+</head>
+<body>
+<div id="app">
+  <div id="view"><canvas id="cv"></canvas></div>
+  <div id="panel">
+    <h2>首の機構シミュレータ v3（単位 mm）</h2>
+    <div class="row">
+      <label>パン（左右）<span id="panVal">0°</span></label>
+      <input type="range" id="pan" min="-80" max="80" value="0" step="1">
+    </div>
+    <div class="row">
+      <label>チルト（上下）<span id="tiltVal">0°</span></label>
+      <input type="range" id="tilt" min="-45" max="45" value="0" step="1">
+    </div>
+    <div class="row">
+      <button id="btnCenter">CENTER</button>
+      <button id="btnNod">NOD</button>
+      <button id="btnShake">SHAKE</button>
+      <button id="btnSway" class="sub">ゆらぎ ON/OFF</button>
+    </div>
+    <div id="readout">読み込み中…</div>
+    <div class="note">
+      寸法は MECHANISM.md v2 と同じ：土台は円 Ø104×40（Motion Base v1.2 の
+      実寸 75.4×24 が入る最小の円）、デッキ Ø104、チルト軸高110、
+      スマホ下端から60mmを掴む。土台の中は後ろにATOMスタック、中心にパンサーボ。
+      チルトサーボはスマホ背面のボックスに内蔵（頬板は受け軸だけ）。
+      サーボ寸法はネットで入手した SG90 実モデル（cad/servo/）から測定：
+      ボディ 22.5×12.2×22.5、フランジ 32.2、軸は中心から +5.5mm ずれる。
+      角度はファームと同じ「少しずつ寄せる」動きで再現。
+      ドラッグで回転、ホイールでズーム。<br>
+      ※ v3 は外部ライブラリ（Three.js の CDN 読み込み）なしの単体動作版。
+    </div>
+  </div>
+</div>
+
+<script>
+"use strict";
+// ---- 基本寸法 (MECHANISM.md v2) ----
+const BASE_D = 104, BASE_H = 40;   // 土台: 円 Ø104 (ユーザー希望で円に変更)
+const DECK_R = 52, DECK_TOP = 48;
+const AXIS_H = 110;
+const GRIP_FROM_BOTTOM = 60;
+const PHONE_W = 63, PHONE_H = 138, PHONE_T = 9.5, PHONE_M = 0.134;
+const HOLDER_M = 0.064;   // ホルダ+背面ボックス+チルトサーボ込み
+const CG_ALONG = 9, CG_PERP = 8;
+const TORQUE_MG90S = 2.2, TORQUE_SG90 = 1.8;
+
+// ---- 簡易3D (Canvas 2D, 外部依存なし) ----
+const cv = document.getElementById("cv");
+const ctx = cv.getContext("2d");
+let az = -0.65, el = 0.42, zoom = 2.1;   // 視点: 方位/仰角/倍率
+const LIGHT = (() => { const v = [0.45, 0.8, 0.5]; const l = Math.hypot(...v); return v.map(x => x / l); })();
+
+function rotY(p, a) { const c = Math.cos(a), s = Math.sin(a); return [p[0] * c + p[2] * s, p[1], -p[0] * s + p[2] * c]; }
+function rotX(p, a) { const c = Math.cos(a), s = Math.sin(a); return [p[0], p[1] * c - p[2] * s, p[1] * s + p[2] * c]; }
+function view(p) { // ワールド -> 視点座標 (z が大きいほど手前)
+  let q = rotY(p, az);
+  q = rotX(q, el);
+  return q;
+}
+function project(p, w, h) {
+  const q = view(p);
+  return [w / 2 + q[0] * zoom, h * 0.58 - q[1] * zoom, q[2]];
+}
+
+// 部品: {faces: [[ [x,y,z], ... ]], color:[r,g,b], group: "base"|"pan"|"tilt"}
+const parts = [];
+function addBox(cx, cy, cz, w, h, d, color, group) {
+  const x0 = cx - w / 2, x1 = cx + w / 2, y0 = cy - h / 2, y1 = cy + h / 2, z0 = cz - d / 2, z1 = cz + d / 2;
+  const F = [
+    [[x1, y0, z0], [x1, y1, z0], [x1, y1, z1], [x1, y0, z1]],
+    [[x0, y0, z1], [x0, y1, z1], [x0, y1, z0], [x0, y0, z0]],
+    [[x0, y1, z0], [x0, y1, z1], [x1, y1, z1], [x1, y1, z0]],
+    [[x0, y0, z1], [x0, y0, z0], [x1, y0, z0], [x1, y0, z1]],
+    [[x0, y0, z1], [x1, y0, z1], [x1, y1, z1], [x0, y1, z1]],
+    [[x1, y0, z0], [x0, y0, z0], [x0, y1, z0], [x1, y1, z0]],
+  ];
+  parts.push({ faces: F, color, group });
+}
+function addCyl(cx, cy, cz, r, h, color, group, seg = 28) {
+  const faces = [];
+  const top = [], bot = [];
+  for (let i = 0; i < seg; i++) {
+    const a = (i / seg) * Math.PI * 2;
+    top.push([cx + r * Math.cos(a), cy + h / 2, cz + r * Math.sin(a)]);
+    bot.push([cx + r * Math.cos(a), cy - h / 2, cz + r * Math.sin(a)]);
+  }
+  for (let i = 0; i < seg; i++) {
+    const j = (i + 1) % seg;
+    faces.push([bot[i], bot[j], top[j], top[i]]);
+  }
+  faces.push(top.slice().reverse());
+  faces.push(bot);
+  parts.push({ faces, color, group });
+}
+function addCylX(cx, cy, cz, r, h, color, group, seg = 24) {
+  // X軸方向の円柱 (頬板のボスなど)
+  const faces = [];
+  const lft = [], rgt = [];
+  for (let i = 0; i < seg; i++) {
+    const a = (i / seg) * Math.PI * 2;
+    lft.push([cx - h / 2, cy + r * Math.cos(a), cz + r * Math.sin(a)]);
+    rgt.push([cx + h / 2, cy + r * Math.cos(a), cz + r * Math.sin(a)]);
+  }
+  for (let i = 0; i < seg; i++) {
+    const j = (i + 1) % seg;
+    faces.push([lft[i], lft[j], rgt[j], rgt[i]]);
+  }
+  faces.push(lft, lft.slice().reverse(), rgt, rgt.slice().reverse());
+  parts.push({ faces, color, group });
+}
+function addStadium(len, wid, r, h, cy, color, group) {
+  // 角丸長方形の押し出し (XZ平面 -> Y高さ)
+  const pts = [];
+  const cx = len / 2 - r, cz = wid / 2 - r;
+  const corners = [[cx, cz, 0], [-cx, cz, Math.PI / 2], [-cx, -cz, Math.PI], [cx, -cz, Math.PI * 1.5]];
+  for (const [ccx, ccz, start] of corners) {
+    for (let i = 0; i <= 4; i++) {
+      const a = start + (i / 4) * (Math.PI / 2);
+      pts.push([ccx + r * Math.cos(a), ccz + r * Math.sin(a)]);
+    }
+  }
+  const faces = [];
+  const n = pts.length;
+  const top = pts.map(([x, z]) => [x, cy + h / 2, z]);
+  const bot = pts.map(([x, z]) => [x, cy - h / 2, z]);
+  for (let i = 0; i < n; i++) {
+    const j = (i + 1) % n;
+    faces.push([bot[i], bot[j], top[j], top[i]]);
+  }
+  faces.push(top.slice().reverse());
+  faces.push(bot);
+  parts.push({ faces, color, group });
+}
+
+// 色: [r,g,b]
+const C_BASE = [223, 227, 230], C_DARK = [154, 164, 171], C_STACK = [240, 217, 160],
+      C_ATOM = [185, 216, 186], C_SERVO = [215, 122, 122], C_PHONE = [28, 39, 51];
+
+// ---- 土台 (静止側) ----
+addCyl(0, 2, 0, BASE_D / 2 + 1, 4, C_DARK, "base");                         // 底板
+addCyl(0, 4 + (BASE_H - 4) / 2, 0, BASE_D / 2, BASE_H - 4, C_BASE, "base"); // シェル Ø104
+// ATOMスタック: Motion Base v1.2 (75.4 x 20.7 x 24) を後ろ (z=-19.1, 帯 -31.1..-7.1) に
+addBox(0, 4 + 20.7 / 2, -19.1, 75.4, 20.7, 24, C_STACK, "base");              // Motion Base v1.2
+addBox(-25.7, 4 + 20.7 + 9.5 / 2, -19.1, 24, 9.5, 24, C_ATOM, "base");        // ATOM Lite
+// パンサーボ: 実モデル寸法 (ボディ22.5x12.2x22.5, フランジ32.2, 軸は中心から+5.5)
+// 軸がパン中心に来るよう、本体中心を x=-5.5 に置く
+addBox(-5.5, 4 + 22.5 / 2, 0, 22.5, 22.5, 12.2, C_SERVO, "base");           // ボディ
+addBox(-5.5, 4 + 16.75, 0, 32.2, 2, 12.2, C_SERVO, "base");                 // フランジ
+addCyl(0, 4 + 24, 0, 5.8, 5, C_SERVO, "base");                              // ボス Ø11.6
+addCyl(0, 4 + 27.5, 0, 2.4, 4, C_DARK, "base");                             // シャフト Ø4.8
+// ---- パン回転側 ----
+addCyl(0, 40.5, 0, 15, 7, C_DARK, "pan");                                   // デッキ裏ハブ
+addCyl(0, (BASE_H + DECK_TOP) / 2, 0, DECK_R, DECK_TOP - BASE_H, C_BASE, "pan"); // デッキ Ø104
+addBox(-39, (DECK_TOP + AXIS_H) / 2, -9, 8, AXIS_H - DECK_TOP, 32, C_BASE, "pan");  // 頬板L (厚8, 後ろ寄り)
+addBox(39, (DECK_TOP + AXIS_H) / 2, -9, 8, AXIS_H - DECK_TOP, 32, C_BASE, "pan");   // 頬板R (厚8, 後ろ寄り)
+addCylX(-39, AXIS_H, -13, 12, 8, C_BASE, "pan");                            // 頬板L ボス (軸位置 z=-13)
+addCylX(39, AXIS_H, -13, 12, 8, C_BASE, "pan");                             // 頬板R ボス
+// ---- チルト回転側 (原点=チルト軸, スマホ中心面より13mm後ろ) ----
+addBox(-30, 0, 0, 8, 10, 20, C_DARK, "tilt");
+addBox(30, 0, 0, 8, 10, 20, C_DARK, "tilt");
+addBox(0, 5, -1.25, PHONE_W + 3, 120, 15.5, C_DARK, "tilt");                // 背面ボックス (サーボ内蔵)
+// チルトサーボ (背面ボックス内, 実モデル寸法): 軸は +X 方向, ずれ +5.5 は高さ方向に出る
+addBox(14.75, -5.5, 0, 22.5, 22.5, 12.2, C_SERVO, "tilt");                  // ボディ
+addBox(20.25, -5.5, 0, 2, 32.2, 12.2, C_SERVO, "tilt");                     // フランジ
+addCylX(27.5, 0, 0, 5.8, 5, C_SERVO, "tilt");                               // ボス Ø11.6
+addCylX(31, 0, 0, 2.4, 4, C_DARK, "tilt");                                  // シャフト Ø4.8
+const PHONE_CY = PHONE_H / 2 - GRIP_FROM_BOTTOM;                            // +9
+addBox(0, PHONE_CY, 13, PHONE_W, PHONE_H, PHONE_T, C_PHONE, "tilt");        // スマホ (中心面は軸より13mm手前)
+
+let panA = 0, tiltA = 0;   // 現在角度 (描画用に animate が更新)
+
+function groupPoint(p, group) {
+  if (group === "base") return p;
+  if (group === "pan") return rotY(p, -panA * Math.PI / 180);
+  // tilt: チルト回転 -> 軸高さへ -> パン回転
+  // 符号の約束: tilt + = お辞儀方向 (顔が下を向く)。top が +z (手前) に倒れる
+  let q = rotX(p, tiltA * Math.PI / 180);
+  q = [q[0], q[1] + AXIS_H, q[2] - 13];
+  return rotY(q, -panA * Math.PI / 180);
+}
+function faceNormal(pts) {
+  const [a, b, c] = pts;
+  const u = [b[0] - a[0], b[1] - a[1], b[2] - a[2]];
+  const v = [c[0] - b[0], c[1] - b[1], c[2] - b[2]];
+  const n = [u[1] * v[2] - u[2] * v[1], u[2] * v[0] - u[0] * v[2], u[0] * v[1] - u[1] * v[0]];
+  const l = Math.hypot(...n) || 1;
+  return n.map(x => x / l);
+}
+
+function draw() {
+  const dpr = window.devicePixelRatio || 1;
+  const w = cv.clientWidth, h = cv.clientHeight;
+  if (cv.width !== Math.round(w * dpr) || cv.height !== Math.round(h * dpr)) {
+    cv.width = Math.round(w * dpr); cv.height = Math.round(h * dpr);
+  }
+  ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+  ctx.clearRect(0, 0, w, h);
+  ctx.fillStyle = "#f4f4f2"; ctx.fillRect(0, 0, w, h);
+
+  // 地面グリッド
+  ctx.strokeStyle = "#dddddd"; ctx.lineWidth = 1;
+  ctx.beginPath();
+  for (let g = -140; g <= 140; g += 20) {
+    let a = project([g, 0, -140], w, h), b = project([g, 0, 140], w, h);
+    ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]);
+    a = project([-140, 0, g], w, h); b = project([140, 0, g], w, h);
+    ctx.moveTo(a[0], a[1]); ctx.lineTo(b[0], b[1]);
+  }
+  ctx.stroke();
+
+  // 全フェイスを集めて奥から描く
+  const drawList = [];
+  for (const part of parts) {
+    for (const face of part.faces) {
+      const world = face.map(p => groupPoint(p, part.group));
+      const vw = world.map(p => view(p));
+      const n = faceNormal(vw);
+      if (n[2] < -0.02) continue; // カメラに背を向けた面は省略
+      const depth = vw.reduce((s, p) => s + p[2], 0) / vw.length;
+      const wl = faceNormal(world);
+      const shade = 0.45 + 0.55 * Math.max(0, wl[0] * LIGHT[0] + wl[1] * LIGHT[1] + wl[2] * LIGHT[2]);
+      drawList.push({ world, depth, color: part.color, shade });
+    }
+  }
+  drawList.sort((a, b) => a.depth - b.depth);
+  for (const item of drawList) {
+    const pts = item.world.map(p => project(p, w, h));
+    const [r, g, b] = item.color.map(c => Math.min(255, Math.round(c * item.shade + 12)));
+    ctx.fillStyle = `rgb(${r},${g},${b})`;
+    ctx.strokeStyle = "rgba(60,70,80,0.35)";
+    ctx.beginPath();
+    ctx.moveTo(pts[0][0], pts[0][1]);
+    for (let i = 1; i < pts.length; i++) ctx.lineTo(pts[i][0], pts[i][1]);
+    ctx.closePath(); ctx.fill(); ctx.stroke();
+  }
+
+  // 顔 (スマホ前面に目と口)
+  const facePt = (x, y) => project(groupPoint([x, PHONE_CY + y, 13 + PHONE_T / 2 + 0.3], "tilt"), w, h);
+  const ex = facePt(4.5, 30), ex0 = facePt(0, 30);
+  const eyeR = Math.max(1.5, Math.abs(ex[0] - ex0[0]));
+  ctx.fillStyle = "#f5f5f5";
+  for (const sx of [-11, 11]) {
+    const e = facePt(sx, 30);
+    ctx.beginPath(); ctx.ellipse(e[0], e[1], eyeR, eyeR * 1.5, 0, 0, Math.PI * 2); ctx.fill();
+  }
+  const m0 = facePt(-8, 8), m1 = facePt(0, 4.5), m2 = facePt(8, 8);
+  ctx.strokeStyle = "#f5f5f5"; ctx.lineWidth = Math.max(1.5, eyeR * 0.45); ctx.lineCap = "round";
+  ctx.beginPath(); ctx.moveTo(m0[0], m0[1]); ctx.quadraticCurveTo(m1[0], m1[1], m2[0], m2[1]); ctx.stroke();
+}
+
+// ---- 制御 (ファームと同じ「少しずつ寄せる」) ----
+let panT = 0, tiltT = 0;
+let gesture = null, gestureT0 = 0, sway = true, lastCmd = performance.now();
+const $ = (id) => document.getElementById(id);
+$("pan").addEventListener("input", (e) => { panT = +e.target.value; lastCmd = performance.now(); gesture = null; });
+$("tilt").addEventListener("input", (e) => { tiltT = +e.target.value; lastCmd = performance.now(); gesture = null; });
+$("btnCenter").addEventListener("click", () => { panT = 0; tiltT = 0; gesture = null; syncSliders(); });
+$("btnNod").addEventListener("click", () => { gesture = "nod"; gestureT0 = performance.now(); });
+$("btnShake").addEventListener("click", () => { gesture = "shake"; gestureT0 = performance.now(); });
+$("btnSway").addEventListener("click", () => { sway = !sway; });
+function syncSliders() { $("pan").value = panT; $("tilt").value = tiltT; }
+
+// ドラッグで視点回転 / ホイールでズーム
+let dragging = null;
+cv.addEventListener("pointerdown", (e) => { dragging = [e.clientX, e.clientY]; cv.setPointerCapture(e.pointerId); });
+cv.addEventListener("pointermove", (e) => {
+  if (!dragging) return;
+  az += (e.clientX - dragging[0]) * 0.008;
+  el = Math.max(-0.1, Math.min(1.3, el + (e.clientY - dragging[1]) * 0.006));
+  dragging = [e.clientX, e.clientY];
+});
+cv.addEventListener("pointerup", () => { dragging = null; });
+cv.addEventListener("wheel", (e) => {
+  e.preventDefault();
+  zoom = Math.max(0.9, Math.min(5, zoom * (e.deltaY < 0 ? 1.1 : 0.9)));
+}, { passive: false });
+
+const readout = $("readout");
+function stepToward(now, target, step) {
+  if (now < target) return Math.min(target, now + step);
+  if (now > target) return Math.max(target, now - step);
+  return now;
+}
+
+function animate() {
+  requestAnimationFrame(animate);
+  const now = performance.now();
+  if (gesture === "nod") {
+    const seq = [25, 0, 25, 0];
+    const idx = Math.floor((now - gestureT0) / 260);
+    if (idx >= seq.length * 2) { gesture = null; tiltT = 0; }
+    else tiltT = seq[idx % seq.length];
+  } else if (gesture === "shake") {
+    const seq = [-25, 25, -25, 0];
+    const idx = Math.floor((now - gestureT0) / 260);
+    if (idx >= seq.length * 2) { gesture = null; panT = 0; }
+    else panT = seq[idx % seq.length];
+  } else if (sway && now - lastCmd > 8000 && Math.random() < 0.01) {
+    panT = Math.round((Math.random() * 50 - 25));
+    tiltT = Math.round(Math.random() * 14 - 4);
+    syncSliders();
+  }
+  panA = stepToward(panA, panT, 2);
+  tiltA = stepToward(tiltA, tiltT, 1);
+  draw();
+
+  // ---- 検証値 ----
+  const tRad = Math.abs(tiltA) * Math.PI / 180;
+  const torque = (PHONE_M + HOLDER_M) *
+    (CG_ALONG / 10 * Math.sin(tRad) + CG_PERP / 10 * Math.cos(tRad)); // kg·cm
+  let minY = Infinity;
+  for (const dz of [13 - PHONE_T / 2, 13 + PHONE_T / 2]) {   // 軸から見たスマホ厚み方向の角
+    const y = AXIS_H - GRIP_FROM_BOTTOM * Math.cos(tRad) - dz * Math.sin(tRad);
+    minY = Math.min(minY, y);
+  }
+  const clearance = minY - DECK_TOP;
+  $("panVal").textContent = `${Math.round(panA)}°`;
+  $("tiltVal").textContent = `${Math.round(tiltA)}°`;
+  readout.innerHTML =
+    `チルト保持トルク: <b>${torque.toFixed(2)} kg·cm</b>` +
+    `（MG90S ${TORQUE_MG90S} に対して余裕 ${(TORQUE_MG90S / Math.max(torque, 0.01)).toFixed(1)} 倍` +
+    ` / SG90 ${TORQUE_SG90} でも ${(TORQUE_SG90 / Math.max(torque, 0.01)).toFixed(1)} 倍）<br>` +
+    `スマホ下端とデッキの隙間: <b class="${clearance > 0 ? "ok" : "warn"}">${clearance.toFixed(1)} mm</b><br>` +
+    `パン端まで: あと ${Math.max(0, 85 - Math.abs(panA)).toFixed(0)}°（85°で機械ストッパ）<br>` +
+    `土台内の隙間: スタック⇔フランジ 約1mm / スタック角⇔内壁 約1mm / スタック上面⇔天面 約4mm`;
+}
+animate();
+</script>
+</body>
+</html>

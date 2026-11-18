@@ -1,0 +1,173 @@
+{
+ "commands": [
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     0,
+     0,
+     4
+    ],
+    "body_name": "BaseShell",
+    "diameter": 104,
+    "height": 36
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     0,
+     0,
+     4
+    ],
+    "diameter": 100,
+    "height": 34,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     0,
+     0,
+     35
+    ],
+    "diameter": 34,
+    "height": 8,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     32.53,
+     32.53,
+     4
+    ],
+    "diameter": 9,
+    "height": 10,
+    "operation": "join",
+    "targets": [
+     "BaseShell"
+    ]
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     -32.53,
+     32.53,
+     4
+    ],
+    "diameter": 9,
+    "height": 10,
+    "operation": "join",
+    "targets": [
+     "BaseShell"
+    ]
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     32.53,
+     -32.53,
+     4
+    ],
+    "diameter": 9,
+    "height": 10,
+    "operation": "join",
+    "targets": [
+     "BaseShell"
+    ]
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     -32.53,
+     -32.53,
+     4
+    ],
+    "diameter": 9,
+    "height": 10,
+    "operation": "join",
+    "targets": [
+     "BaseShell"
+    ]
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     32.53,
+     32.53,
+     0
+    ],
+    "diameter": 2.6,
+    "height": 16,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     -32.53,
+     32.53,
+     0
+    ],
+    "diameter": 2.6,
+    "height": 16,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     32.53,
+     -32.53,
+     0
+    ],
+    "diameter": 2.6,
+    "height": 16,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     -32.53,
+     -32.53,
+     0
+    ],
+    "diameter": 2.6,
+    "height": 16,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     -54,
+     -25,
+     8
+    ],
+    "height": 12,
+    "length": 8,
+    "operation": "cut",
+    "width": 12
+   }
+  }
+ ]
+}

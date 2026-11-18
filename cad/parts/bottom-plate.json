@@ -1,0 +1,86 @@
+{
+ "commands": [
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     0,
+     0,
+     0
+    ],
+    "body_name": "BottomPlate",
+    "diameter": 106,
+    "height": 4
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     -39.7,
+     -33.1,
+     4
+    ],
+    "height": 1.5,
+    "length": 79.4,
+    "width": 28,
+    "operation": "join",
+    "targets": [
+     "BottomPlate"
+    ]
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     32.53,
+     32.53,
+     -2
+    ],
+    "diameter": 3.4,
+    "height": 8,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     -32.53,
+     32.53,
+     -2
+    ],
+    "diameter": 3.4,
+    "height": 8,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     32.53,
+     -32.53,
+     -2
+    ],
+    "diameter": 3.4,
+    "height": 8,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     -32.53,
+     -32.53,
+     -2
+    ],
+    "diameter": 3.4,
+    "height": 8,
+    "operation": "cut"
+   }
+  }
+ ]
+}
