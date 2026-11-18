@@ -63,15 +63,26 @@
 
 <script>
 "use strict";
-// ---- 基本寸法 (MECHANISM.md v2) ----
-const BASE_D = 104, BASE_H = 40;   // 土台: 円 Ø104 (ユーザー希望で円に変更)
-const DECK_R = 52, DECK_TOP = 48;
-const AXIS_H = 116;
-const GRIP_FROM_BOTTOM = 52;
-const PHONE_W = 63, PHONE_H = 138, PHONE_T = 9.5, PHONE_M = 0.134;
-const HOLDER_M = 0.064;   // ホルダ+背面ボックス+チルトサーボ込み
-const CG_ALONG = 17, CG_PERP = 8;
-const TORQUE_MG90S = 2.2, TORQUE_SG90 = 1.8;
+/* === GENERATED FROM params.json (build.py) — 手で編集しない === */
+const P = {"_about": "スマッホチャンの寸法の正本。ここを直して build.py を実行すると、CAD (SolidCraft JSON)・シミュレーター・showcase の部品表・MECHANISM.md の主要寸法表・mechanism.svg が全部追随する。単位は mm / g / kg·cm。", "atom": {"_name": "ATOM Lite", "h": 9.5, "l": 24, "w": 24, "x": -25.7}, "design": {"arm_t": 3.5, "arm_top": 48, "axis_back": 13, "axis_h": 116, "base_d": 104, "bearing_hole_d": 22.2, "boss_d": 9, "boss_hole_d": 12, "boss_hole_x": 28, "boss_pilot_d": 2.6, "boss_r": 12, "box_back": 9, "box_l": 120, "box_t": 15.5, "box_w": 66, "cable_hole_d": 7, "cg_along": 17, "cg_perp": 8, "channel_w": 4.5, "channel_y": [-1, 5], "charge_ch_depth": 2.5, "charge_ch_w": 8, "cheek_depth": 32, "cheek_hole_d": 3.4, "cheek_pilot_d": 2.6, "cheek_t": 8, "cheek_x_in": 35, "cheek_y_back": -12, "cheek_y_front": 20, "deck_t": 8, "ear_pilot_d": 1.8, "ear_pilot_x": 20, "flange_recess_x": 23, "flange_z": 25.25, "foot_ext": 4, "foot_holes_y": [-6, 14], "grip": 52, "groove_depth": 2.5, "groove_len": 22, "groove_w": 5, "holder_mass_g": 64, "horn_hole_d": 2.2, "horn_hole_r": 10, "horn_pilot_d": 1.8, "horn_pilot_r": 8, "hub_bore_d": 3.2, "hub_d": 30, "hub_h": 10, "ledge_h": 5, "ledge_w": 12, "lip_h": 3.5, "lip_t": 2.5, "pan_stop": 85, "pivot_hole_d": 8.2, "plate_d": 106, "plate_hole_d": 3.4, "plate_t": 4, "pocket_clr": 0.4, "pocket_wire_space": 3.5, "recess_clr": 0.8, "saddle_base_h": 2, "saddle_base_l": 39, "saddle_base_w": 16, "saddle_wall_w": 13, "saddle_walls": [[-18.4, -11.8], [11.9, 18.1]], "servo_bearing_hole_d": 12.2, "servo_ch_h": 10, "shell_slot_w": 14, "shell_top": 40, "shell_top_hole_d": 40, "shell_wall": 2, "slot_depth": 6, "slot_h": 8, "slot_l": 4.4, "slot_w": 2.2, "slot_z": 24, "spacer_t": 1.75, "stack_z": -19.1, "tray_h": 1.5, "tray_l": 79.4, "tray_w": 28, "usb_fb_center": -19, "usb_h": 12, "usb_w": 12, "usb_z": 8}, "gauge": {"_name": "フィットゲージ (サーボポケットのクリアランス確認用)", "centers": [19, 52, 85], "clearances": [0.2, 0.4, 0.6], "l": 104, "nominal_l": 22.2, "nominal_w": 11.8, "t": 6, "w": 34}, "motion_base": {"_name": "ATOMIC Motion Base v1.2", "h": 20.7, "l": 75.4, "w": 24.0}, "phone": {"_name": "Rakuten Hand (P710)", "h": 138, "mass_g": 134, "t": 9.5, "w": 63}, "servo": {"_note": "SG90 / MG90S 実測 (cad/servo のモデルより)。shaft_offset はモデル間で +3.7〜+5.5 と食い違うので実物で要確認", "body_h": 22.5, "body_l": 22.5, "body_w": 12.2, "boss_d": 11.6, "boss_top": 26.5, "ear_pitch": 28.5, "flange_from_bottom": 15.75, "flange_l": 32.2, "flange_t": 2.0, "shaft_d": 4.8, "shaft_offset": 5.5, "shaft_tip": 29.5, "torque_mg90s": 2.2, "torque_sg90": 1.8}};
+const PART_META = {"base-shell": {"vol": 38.1, "dims": "104×104×36", "vol_mm3": 38144}, "bottom-plate": {"vol": 42.9, "dims": "106×106×25.25", "vol_mm3": 42858}, "pan-deck": {"vol": 74.2, "dims": "104×104×18", "vol_mm3": 74170}, "cheek-left": {"vol": 16.8, "dims": "16×32×80", "vol_mm3": 16753}, "cheek-right": {"vol": 20.4, "dims": "16×32×80", "vol_mm3": 20409}, "back-box": {"vol": 136.8, "dims": "70×28.5×120", "vol_mm3": 136811}, "fit-gauge": {"vol": 16.3, "dims": "104×34×6", "vol_mm3": 16253}};
+const DERIVED = {"deck_top": 48, "total_height": 202, "moving_mass_g": 198, "phone_bottom_clearance": 16, "gap_flange_mm": 1.0, "gap_corner_mm": 1.1, "gap_top_mm": 3.8, "torque45": 0.35};
+/* === /GENERATED === */
+// ---- 基本寸法 (params.json 由来) ----
+const D = P.design, SV = P.servo, MB = P.motion_base, AT = P.atom, PH = P.phone;
+const BASE_D = D.base_d, BASE_H = D.shell_top;
+const DECK_R = D.base_d / 2, DECK_TOP = D.shell_top + D.deck_t;
+const AXIS_H = D.axis_h, AXIS_BACK = D.axis_back;
+const GRIP_FROM_BOTTOM = D.grip;
+const PHONE_W = PH.w, PHONE_H = PH.h, PHONE_T = PH.t, PHONE_M = PH.mass_g / 1000;
+const HOLDER_M = D.holder_mass_g / 1000;   // ホルダ+背面ボックス+チルトサーボ込み
+const CG_ALONG = D.cg_along, CG_PERP = D.cg_perp;
+const TORQUE_MG90S = SV.torque_mg90s, TORQUE_SG90 = SV.torque_sg90;
+const SERVO_B = D.flange_z - SV.flange_from_bottom;   // パンサーボ底面 (サドル吊り)
+const CHEEK_CX = D.cheek_x_in + D.cheek_t / 2;
+const CHEEK_DROP = AXIS_H - DECK_TOP;
+const AXIS_FB_C = -AXIS_BACK + (D.cheek_y_back + D.cheek_y_front) / 2;  // 頬板の前後中心
+const CH_Y = (D.channel_y[0] + D.channel_y[1]) / 2;   // 頬板チャンネルの前後中心 (軸基準)
 
 // ---- 簡易3D (Canvas 2D, 外部依存なし) ----
 const cv = document.getElementById("cv");
@@ -166,35 +177,36 @@ const C_BASE = [223, 227, 230], C_DARK = [154, 164, 171], C_STACK = [240, 217, 1
       C_ATOM = [185, 216, 186], C_SERVO = [215, 122, 122], C_PHONE = [28, 39, 51];
 
 // ---- 土台 (静止側) ----
-addCyl(0, 2, 0, BASE_D / 2 + 1, 4, C_DARK, "base");                         // 底板
-addCyl(0, 4 + (BASE_H - 4) / 2, 0, BASE_D / 2, BASE_H - 4, C_BASE, "base"); // シェル Ø104
-// ATOMスタック: Motion Base v1.2 (75.4 x 20.7 x 24) を後ろ (z=-19.1, 帯 -31.1..-7.1) に
-addBox(0, 4 + 20.7 / 2, -19.1, 75.4, 20.7, 24, C_STACK, "base");              // Motion Base v1.2
-addBox(-25.7, 4 + 20.7 + 9.5 / 2, -19.1, 24, 9.5, 24, C_ATOM, "base");        // ATOM Lite
+addCyl(0, D.plate_t / 2, 0, D.plate_d / 2, D.plate_t, C_DARK, "base");                 // 底板
+addCyl(0, D.plate_t + (BASE_H - D.plate_t) / 2, 0, BASE_D / 2, BASE_H - D.plate_t, C_BASE, "base"); // シェル
+// ATOMスタック: Motion Base v1.2 を後ろ (帯の中心 = stack_z) に
+addBox(0, D.plate_t + MB.h / 2, D.stack_z, MB.l, MB.h, MB.w, C_STACK, "base");         // Motion Base v1.2
+addBox(AT.x, D.plate_t + MB.h + AT.h / 2, D.stack_z, AT.l, AT.h, AT.w, C_ATOM, "base"); // ATOM Lite
 // パンサーボ: 実モデル寸法 (ボディ22.5x12.2x22.5, フランジ32.2, 軸は中心から+5.5)
 // 軸がパン中心に来るよう、本体中心を x=-5.5 に置く
-addBox(-5.5, 4 + 22.5 / 2, 0, 22.5, 22.5, 12.2, C_SERVO, "base");           // ボディ
-addBox(-5.5, 4 + 16.75, 0, 32.2, 2, 12.2, C_SERVO, "base");                 // フランジ
-addCyl(0, 4 + 24, 0, 5.8, 5, C_SERVO, "base");                              // ボス Ø11.6
-addCyl(0, 4 + 27.5, 0, 2.4, 4, C_DARK, "base");                             // シャフト Ø4.8
+addBox(-SV.shaft_offset, SERVO_B + SV.body_h / 2, 0, SV.body_l, SV.body_h, SV.body_w, C_SERVO, "base"); // ボディ
+addBox(-SV.shaft_offset, D.flange_z + SV.flange_t / 2, 0, SV.flange_l, SV.flange_t, SV.body_w, C_SERVO, "base"); // フランジ
+addCyl(0, SERVO_B + 24, 0, SV.boss_d / 2, 5, C_SERVO, "base");              // ボス
+addCyl(0, SERVO_B + 27.5, 0, SV.shaft_d / 2, 4, C_DARK, "base");            // シャフト
 // ---- パン回転側 ----
-addCyl(0, 40.5, 0, 15, 7, C_DARK, "pan");                                   // デッキ裏ハブ
-addCyl(0, (BASE_H + DECK_TOP) / 2, 0, DECK_R, DECK_TOP - BASE_H, C_BASE, "pan"); // デッキ Ø104
-addBox(-39, (DECK_TOP + AXIS_H + 12) / 2, -9, 8, AXIS_H - DECK_TOP + 12, 32, C_BASE, "pan");  // 頬板L (厚8, 後ろ寄り)
-addBox(39, (DECK_TOP + AXIS_H + 12) / 2, -9, 8, AXIS_H - DECK_TOP + 12, 32, C_BASE, "pan");   // 頬板R (厚8, 後ろ寄り)
-addCylX(-39, AXIS_H, -13, 12, 8, C_BASE, "pan");                            // 頬板L ボス (軸位置 z=-13)
-addCylX(39, AXIS_H, -13, 12, 8, C_BASE, "pan");                             // 頬板R ボス
+addCyl(0, BASE_H - D.hub_h / 2, 0, D.hub_d / 2, D.hub_h, C_DARK, "pan");    // デッキ裏ハブ
+addCyl(0, (BASE_H + DECK_TOP) / 2, 0, DECK_R, DECK_TOP - BASE_H, C_BASE, "pan"); // デッキ
+addBox(-CHEEK_CX, DECK_TOP + (CHEEK_DROP + D.boss_r) / 2, AXIS_FB_C, D.cheek_t, CHEEK_DROP + D.boss_r, D.cheek_depth, C_BASE, "pan"); // 頬板L
+addBox(CHEEK_CX, DECK_TOP + (CHEEK_DROP + D.boss_r) / 2, AXIS_FB_C, D.cheek_t, CHEEK_DROP + D.boss_r, D.cheek_depth, C_BASE, "pan");  // 頬板R
+addCylX(-CHEEK_CX, AXIS_H, -AXIS_BACK, D.boss_r, D.cheek_t, C_BASE, "pan"); // 頬板L ボス
+addCylX(CHEEK_CX, AXIS_H, -AXIS_BACK, D.boss_r, D.cheek_t, C_BASE, "pan");  // 頬板R ボス
 // ---- チルト回転側 (原点=チルト軸, スマホ中心面より13mm後ろ) ----
-addBox(-30, 0, 0, 8, 10, 20, C_DARK, "tilt");
-addBox(30, 0, 0, 8, 10, 20, C_DARK, "tilt");
-addBox(0, 5, -1.25, PHONE_W + 3, 120, 15.5, C_DARK, "tilt");                // 背面ボックス (サーボ内蔵)
-// チルトサーボ (背面ボックス内, 実モデル寸法): 軸は +X 方向, ずれ +5.5 は高さ方向に出る
-addBox(14.75, -5.5, 0, 22.5, 22.5, 12.2, C_SERVO, "tilt");                  // ボディ
-addBox(20.25, -5.5, 0, 2, 32.2, 12.2, C_SERVO, "tilt");                     // フランジ
-addCylX(27.5, 0, 0, 5.8, 5, C_SERVO, "tilt");                               // ボス Ø11.6
-addCylX(31, 0, 0, 2.4, 4, C_DARK, "tilt");                                  // シャフト Ø4.8
-const PHONE_CY = PHONE_H / 2 - GRIP_FROM_BOTTOM;                            // +9
-addBox(0, PHONE_CY, 13, PHONE_W, PHONE_H, PHONE_T, C_PHONE, "tilt");        // スマホ (中心面は軸より13mm手前)
+addBox(-(D.box_w / 2 - 3), 0, 0, 8, 10, 20, C_DARK, "tilt");
+addBox(D.box_w / 2 - 3, 0, 0, 8, 10, 20, C_DARK, "tilt");
+addBox(0, -GRIP_FROM_BOTTOM - 3 + D.box_l / 2, (-D.box_back + (AXIS_BACK - PHONE_T / 2 - D.spacer_t)) / 2, D.box_w, D.box_l, D.box_t, C_DARK, "tilt"); // 背面ボックス (サーボ内蔵)
+// チルトサーボ (背面ボックス内, 実モデル寸法): 軸は +X 方向, ずれは軸方向に出る
+const TSV_BOSS = D.box_w / 2 - 5.5;
+addBox(TSV_BOSS - 12.75, -SV.shaft_offset, 0, SV.body_h, SV.body_l, SV.body_w, C_SERVO, "tilt"); // ボディ
+addBox(TSV_BOSS - 7.25, -SV.shaft_offset, 0, SV.flange_t, SV.flange_l, SV.body_w, C_SERVO, "tilt"); // フランジ
+addCylX(TSV_BOSS, 0, 0, SV.boss_d / 2, 5, C_SERVO, "tilt");                 // ボス
+addCylX(TSV_BOSS + 3.5, 0, 0, SV.shaft_d / 2, 4, C_DARK, "tilt");           // シャフト
+const PHONE_CY = PHONE_H / 2 - GRIP_FROM_BOTTOM;
+addBox(0, PHONE_CY, AXIS_BACK, PHONE_W, PHONE_H, PHONE_T, C_PHONE, "tilt"); // スマホ
 
 let panA = 0, tiltA = 0;   // 現在角度 (描画用に animate が更新)
 
@@ -216,19 +228,19 @@ function beamFaces(p1, p2, t) {
 }
 const CABLES = [
   { color: [45, 45, 50], t: 3.2, pts: [   // 充電ケーブル
-    ["T", [0, -50, 13]], ["T", [0, -62, 13]], ["T", [0, -65, 6]], ["T", [0, -61.5, 0]],
-    ["T", [0, -61.5, -8]], ["T", [0, -58, -15]], ["T", [0, -44, -19]],
-    ["P", [0, 72, -32]], ["P", [-6, 56, -40]], ["P", [-4, 47, -49]],
+    ["T", [0, -(GRIP_FROM_BOTTOM - 2), AXIS_BACK]], ["T", [0, -(GRIP_FROM_BOTTOM + 10), AXIS_BACK]], ["T", [0, -(GRIP_FROM_BOTTOM + 13), 6]], ["T", [0, -(GRIP_FROM_BOTTOM + 9.5), 0]],
+    ["T", [0, -(GRIP_FROM_BOTTOM + 9.5), -8]], ["T", [0, -(GRIP_FROM_BOTTOM + 6), -15]], ["T", [0, -(GRIP_FROM_BOTTOM - 8), -19]],
+    ["P", [0, AXIS_H - (GRIP_FROM_BOTTOM - 8), -(19 + AXIS_BACK)]], ["P", [-6, 56, -40]], ["P", [-4, DECK_TOP - 1, -49]],
     ["B", [0, 34, -60]], ["B", [2, 16, -61]], ["B", [8, 1, -72]]] },
   { color: [230, 120, 50], t: 2.4, pts: [ // パンサーボ線 (土台内)
-    ["B", [-5, 18, 6]], ["B", [-2, 10, -2]], ["B", [10, 12, -10]], ["B", [24, 15, -8]]] },
+    ["B", [-SV.shaft_offset, 18, 6]], ["B", [-2, 10, -2]], ["B", [10, 12, -10]], ["B", [24, 15, -8]]] },
 ];
 // チルトサーボ線は隠し配線 (ボックス内 -> 中空ピボット -> 左頬板の内部チャンネル
 // -> デッキ裏の溝 -> 土台内) なので、破線で透かして描く
 const XRAY_CABLE = { color: "rgba(230,120,50,0.9)", pts: [
   ["T", [22, -2, -2]], ["T", [10, 0, 0]], ["T", [-20, 0, 0]], ["T", [-31, 0, 0]],
-  ["P", [-36, 116, -13]], ["P", [-39, 116, -13]], ["P", [-39, 84, -13]], ["P", [-39, 54, -8]],
-  ["P", [-39, 47, 2]], ["P", [-28, 42, 2]], ["P", [-18, 41, 0]],
+  ["P", [-36, AXIS_H, -AXIS_BACK]], ["P", [-CHEEK_CX, AXIS_H, -AXIS_BACK]], ["P", [-CHEEK_CX, AXIS_H - 32, -AXIS_BACK]], ["P", [-CHEEK_CX, DECK_TOP + 6, -AXIS_BACK + 5]],
+  ["P", [-CHEEK_CX, DECK_TOP - 1, -AXIS_BACK + CH_Y]], ["P", [-28, DECK_TOP - 6, -AXIS_BACK + CH_Y]], ["P", [-16, DECK_TOP - 7, -AXIS_BACK + 4]],
   ["B", [-12, 32, -2]], ["B", [-2, 20, -8]], ["B", [24, 15, -8]]] };
 function cablePoint(frame, p) {
   if (frame === "B") return p;
@@ -252,7 +264,7 @@ function groupPoint(p, group) {
   // tilt: チルト回転 -> 軸高さへ -> パン回転
   // 符号の約束: tilt + = お辞儀方向 (顔が下を向く)。top が +z (手前) に倒れる
   let q = rotX(p, tiltA * Math.PI / 180);
-  q = [q[0], q[1] + AXIS_H, q[2] - 13];
+  q = [q[0], q[1] + AXIS_H, q[2] - AXIS_BACK];
   return rotY(q, -panA * Math.PI / 180);
 }
 function faceNormal(pts) {
@@ -320,7 +332,7 @@ function draw() {
   ctx.stroke(); ctx.setLineDash([]);
 
   // 顔 (スマホ前面に目と口)
-  const facePt = (x, y) => project(groupPoint([x, PHONE_CY + y, 13 + PHONE_T / 2 + 0.3], "tilt"), w, h);
+  const facePt = (x, y) => project(groupPoint([x, PHONE_CY + y, AXIS_BACK + PHONE_T / 2 + 0.3], "tilt"), w, h);
   const ex = facePt(4.5, 30), ex0 = facePt(0, 30);
   const eyeR = Math.max(1.5, Math.abs(ex[0] - ex0[0]));
   ctx.fillStyle = "#f5f5f5";
@@ -394,7 +406,7 @@ function animate() {
   const torque = (PHONE_M + HOLDER_M) *
     (CG_ALONG / 10 * Math.sin(tRad) + CG_PERP / 10 * Math.cos(tRad)); // kg·cm
   let minY = Infinity;
-  for (const dz of [13 - PHONE_T / 2, 13 + PHONE_T / 2]) {   // 軸から見たスマホ厚み方向の角
+  for (const dz of [AXIS_BACK - PHONE_T / 2, AXIS_BACK + PHONE_T / 2]) {   // 軸から見たスマホ厚み方向の角
     const y = AXIS_H - GRIP_FROM_BOTTOM * Math.cos(tRad) - dz * Math.sin(tRad);
     minY = Math.min(minY, y);
   }
@@ -406,8 +418,8 @@ function animate() {
     `（MG90S ${TORQUE_MG90S} に対して余裕 ${(TORQUE_MG90S / Math.max(torque, 0.01)).toFixed(1)} 倍` +
     ` / SG90 ${TORQUE_SG90} でも ${(TORQUE_SG90 / Math.max(torque, 0.01)).toFixed(1)} 倍）<br>` +
     `スマホ下端とデッキの隙間: <b class="${clearance > 0 ? "ok" : "warn"}">${clearance.toFixed(1)} mm</b><br>` +
-    `パン端まで: あと ${Math.max(0, 85 - Math.abs(panA)).toFixed(0)}°（85°で機械ストッパ）<br>` +
-    `土台内の隙間: スタック⇔フランジ 約1mm / スタック角⇔内壁 約1mm / スタック上面⇔天面 約4mm`;
+    `パン端まで: あと ${Math.max(0, D.pan_stop - Math.abs(panA)).toFixed(0)}°（${D.pan_stop}°で機械ストッパ）<br>` +
+    `土台内の隙間: スタック⇔フランジ 約${DERIVED.gap_flange_mm}mm / スタック角⇔内壁 約${DERIVED.gap_corner_mm}mm / スタック上面⇔天面 約${DERIVED.gap_top_mm}mm`;
 }
 animate();
 </script>

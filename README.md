@@ -26,10 +26,16 @@
 
 ## CAD
 
-`cad/` 以下は SolidCraft の JSON スクリプトが正本。
+寸法の正本は `params.json`。`build.py` を実行すると、CAD の JSON・
+シミュレーター・部品表・MECHANISM.md の主要寸法表・機構図が全部生成される。
+寸法を変えるときは `params.json` だけを直して再実行する（生成物を手で直さない）。
 
-- `cad/fit-gauge-servo.json` — サーボポケットのクリアランス確認ゲージ
-- `cad/parts/*.json` — 土台シェル / 底板 / パンデッキ / 背面ボックス / 頬板 (右・左)
+```sh
+python3 build.py
+```
+
+- `cad/fit-gauge-servo.json` — サーボポケットのクリアランス確認ゲージ（生成物）
+- `cad/parts/*.json` — 土台シェル / 底板 / パンデッキ / 背面ボックス / 頬板 (右・左)（生成物）
 
 STL とプレビュー PNG は生成物なのでリポジトリには含めていない:
 

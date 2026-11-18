@@ -1,6 +1,60 @@
-{"commands": [
-  {"command": "solid.box", "params": {"length": 104, "width": 34, "height": 6, "corner": [0, 0, 0], "body_name": "FitGauge"}},
-  {"command": "solid.box", "params": {"length": 22.4, "width": 12.0, "height": 10, "corner": [7.8, 11.0, -2], "operation": "cut"}},
-  {"command": "solid.box", "params": {"length": 22.6, "width": 12.2, "height": 10, "corner": [40.7, 10.9, -2], "operation": "cut"}},
-  {"command": "solid.box", "params": {"length": 22.8, "width": 12.4, "height": 10, "corner": [73.6, 10.8, -2], "operation": "cut"}}
-]}
+{
+ "commands": [
+  {
+   "command": "solid.box",
+   "params": {
+    "body_name": "FitGauge",
+    "corner": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "height": 6.0,
+    "length": 104.0,
+    "width": 34.0
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     7.8,
+     11.0,
+     -2.0
+    ],
+    "height": 10.0,
+    "length": 22.4,
+    "operation": "cut",
+    "width": 12.0
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     40.7,
+     10.9,
+     -2.0
+    ],
+    "height": 10.0,
+    "length": 22.6,
+    "operation": "cut",
+    "width": 12.2
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     73.6,
+     10.8,
+     -2.0
+    ],
+    "height": 10.0,
+    "length": 22.8,
+    "operation": "cut",
+    "width": 12.4
+   }
+  }
+ ]
+}

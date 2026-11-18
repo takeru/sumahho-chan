@@ -5,13 +5,13 @@
    "params": {
     "body_name": "CheekL",
     "corner": [
-     0,
-     -12,
-     -68
+     0.0,
+     -12.0,
+     -68.0
     ],
-    "height": 80,
-    "length": 8,
-    "width": 32
+    "height": 80.0,
+    "length": 8.0,
+    "width": 32.0
    }
   },
   {
@@ -19,12 +19,12 @@
    "params": {
     "axis": "X",
     "base": [
-     0,
-     0,
-     0
+     0.0,
+     0.0,
+     0.0
     ],
-    "diameter": 24,
-    "height": 8,
+    "diameter": 24.0,
+    "height": 8.0,
     "operation": "join",
     "targets": [
      "CheekL"
@@ -35,17 +35,17 @@
    "command": "solid.box",
    "params": {
     "corner": [
-     -4,
-     -12,
-     -68
+     -4.0,
+     -12.0,
+     -68.0
     ],
-    "height": 4,
-    "length": 16,
-    "width": 32,
+    "height": 4.0,
+    "length": 16.0,
     "operation": "join",
     "targets": [
      "CheekL"
-    ]
+    ],
+    "width": 32.0
    }
   },
   {
@@ -53,12 +53,12 @@
    "params": {
     "axis": "X",
     "base": [
-     -2,
-     0,
-     0
+     -2.0,
+     0.0,
+     0.0
     ],
     "diameter": 22.2,
-    "height": 12,
+    "height": 12.0,
     "operation": "cut"
    }
   },
@@ -66,12 +66,12 @@
    "command": "solid.cylinder",
    "params": {
     "base": [
-     4,
-     -6,
-     -70
+     4.0,
+     -6.0,
+     -70.0
     ],
     "diameter": 3.4,
-    "height": 8,
+    "height": 8.0,
     "operation": "cut"
    }
   },
@@ -79,12 +79,12 @@
    "command": "solid.cylinder",
    "params": {
     "base": [
-     4,
-     14,
-     -70
+     4.0,
+     14.0,
+     -70.0
     ],
     "diameter": 3.4,
-    "height": 8,
+    "height": 8.0,
     "operation": "cut"
    }
   },
@@ -93,13 +93,13 @@
    "params": {
     "corner": [
      1.75,
-     -1,
-     -68
+     -1.0,
+     -68.0
     ],
+    "height": 70.0,
     "length": 4.5,
-    "width": 6,
-    "height": 70,
-    "operation": "cut"
+    "operation": "cut",
+    "width": 6.0
    }
   }
  ]

@@ -1,73 +1,27 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 440" font-family="sans-serif" font-size="12">
-  <style>
-    .part { fill:#dfe3e6; stroke:#5a6672; stroke-width:1.5; }
-    .inner { fill:#f0d9a0; stroke:#8a6d2f; stroke-width:1.2; }
-    .servo { fill:#e8a0a0; stroke:#8a4a4a; stroke-width:1.2; }
-    .phone { fill:#1c2733; stroke:#000; stroke-width:1.5; }
-    .dim { stroke:#3366aa; stroke-width:1; }
-    .dimtext { fill:#3366aa; font-size:11px; }
-    .label { fill:#22303c; font-size:12px; }
-    .axis { stroke:#c0392b; stroke-width:1.2; stroke-dasharray:5 3; }
-    .ground { stroke:#999; stroke-width:1; }
-  </style>
-
-  <text x="30" y="24" class="label" font-weight="bold">正面図</text>
-  <!-- ground -->
-  <line x1="30" y1="330" x2="330" y2="330" class="ground"/>
-  <!-- front view: scale 1.3 px/mm, center x=180, ground y=330 -->
-  <!-- base Ø104 x40 -->
-  <rect x="112" y="278" width="135" height="52" rx="8" class="part"/>
-  <!-- deck Ø104 x8 (z40-48) -->
-  <rect x="112" y="268" width="135" height="10" class="part"/>
-  <!-- cheeks: L x -43..-35, R x 35..43, z48-110 + boss R12 -->
-  <rect x="124" y="187" width="10" height="81" class="part"/>
-  <rect x="226" y="187" width="10" height="81" class="part"/>
-  <circle cx="129" cy="187" r="16" class="part"/>
-  <circle cx="231" cy="187" r="16" class="part"/>
-  <!-- phone 63 wide, z50-188 -->
-  <rect x="139" y="86" width="82" height="179" rx="6" class="phone"/>
-  <!-- face -->
-  <ellipse cx="163" cy="150" rx="6" ry="9" fill="#f5f5f5"/>
-  <ellipse cx="197" cy="150" rx="6" ry="9" fill="#f5f5f5"/>
-  <path d="M 168 178 Q 180 188 192 178" stroke="#f5f5f5" stroke-width="3" fill="none" stroke-linecap="round"/>
-  <!-- tilt axis z=110 -->
-  <line x1="105" y1="187" x2="255" y2="187" class="axis"/>
-  <text x="258" y="191" fill="#c0392b" font-size="11px">チルト軸 z=110</text>
-  <!-- dims -->
-  <line x1="70" y1="86" x2="70" y2="330" class="dim"/>
-  <text x="38" y="210" class="dimtext">全高 188</text>
-  <line x1="90" y1="278" x2="90" y2="330" class="dim"/>
-  <text x="76" y="352" class="dimtext">土台 40</text>
-  <line x1="112" y1="368" x2="247" y2="368" class="dim"/>
-  <text x="150" y="384" class="dimtext">Ø104</text>
-  <text x="120" y="262" class="label" font-size="11px">デッキ Ø104</text>
-  <text x="96" y="140" class="label" font-size="11px">頬板</text>
-  <text x="248" y="168" class="label" font-size="11px">チルトサーボは背面ボックス内蔵（裏側）</text>
-
-  <text x="430" y="24" class="label" font-weight="bold">上面図（土台内部）</text>
-  <!-- top view: scale 1.9 px/mm, center (565, 200). Ø104 -> r=99 -->
-  <!-- round base -->
-  <circle cx="565" cy="200" r="99" class="part"/>
-  <!-- ATOM stack band Y +7.1..+31.1: y from 200-59=141 to 200-13.5=186.5; X -37.7..37.7: x 493..637 -->
-  <rect x="493" y="141" width="144" height="46" class="inner"/>
-  <!-- ATOM Lite on top at -X end: schematic -->
-  <rect x="498" y="141" width="36" height="35" fill="#c8e6c9" stroke="#4a7a4f" stroke-width="1.2"/>
-  <text x="545" y="155" class="label" font-size="11px">ATOMスタック 75.4×24</text>
-  <text x="545" y="170" class="label" font-size="11px">(Motion Base v1.2 + ATOM Lite)</text>
-  <!-- pan servo: flange 32.2 + body 22.5, offset -5.5 so the shaft is on axis -->
-  <rect x="524" y="188" width="61" height="23" class="servo" opacity="0.45"/>
-  <rect x="533" y="188" width="43" height="23" class="servo"/>
-  <circle cx="565" cy="200" r="3.5" fill="#8a4a4a"/>
-  <text x="592" y="204" class="label" font-size="11px">パンサーボ (軸合わせで −5.5 ずらし)</text>
-  <!-- pan axis cross -->
-  <line x1="565" y1="120" x2="565" y2="282" class="axis"/>
-  <line x1="452" y1="200" x2="678" y2="200" class="axis"/>
-  <!-- cable loop area -->
-  <text x="500" y="248" class="label" font-size="11px">ケーブル余長ループ / 5V分岐</text>
-  <!-- dims -->
-  <line x1="466" y1="105" x2="664" y2="105" class="dim"/>
-  <text x="548" y="98" class="dimtext">Ø104</text>
-  <line x1="690" y1="101" x2="690" y2="299" class="dim"/>
-  <text x="696" y="205" class="dimtext">Ø104</text>
-  <text x="466" y="300" class="label" font-size="11px">後ろ（Y+）にスタック、前（Y−）にケーブル。パン軸＝中心。</text>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 680 340" font-family="sans-serif" font-size="11">
+<rect width="680" height="340" fill="#fffdf7"/>
+<text x="20" y="24" font-size="14" font-weight="bold">スマッホチャン機構図 (params.json から自動生成)</text>
+<!-- 正面図 -->
+<line x1="30" y1="300" x2="330" y2="300" stroke="#999"/>
+<rect x="35" y="258" width="109" height="38" fill="#dfe3e6" stroke="#666"/>
+<rect x="34" y="296" width="111" height="4" fill="#9aa4ab" stroke="#666"/>
+<rect x="35" y="250" width="109" height="8" fill="#dfe3e6" stroke="#666"/>
+<rect x="45" y="166" width="8" height="84" fill="#dfe3e6" stroke="#666"/>
+<rect x="127" y="166" width="8" height="84" fill="#dfe3e6" stroke="#666"/>
+<rect x="57" y="88" width="66" height="145" fill="#1c2733" stroke="#666"/>
+<circle cx="90" cy="178" r="3.5" fill="#e2708a"/>
+<line x1="21" y1="178" x2="159" y2="178" stroke="#e2708a" stroke-dasharray="4 3"/>
+<text x="163" y="182" fill="#e2708a">チルト軸 116</text>
+<text x="35" y="316" fill="#666">土台 Ø104</text>
+<text x="129" y="92" fill="#666">全高 約202</text>
+<text x="129" y="233" fill="#666">掴み 52 (下端から)</text>
+<!-- 上面図 -->
+<circle cx="490" cy="150" r="78" fill="#dfe3e6" stroke="#666"/>
+<circle cx="490" cy="150" r="75" fill="none" stroke="#bbb" stroke-dasharray="3 3"/>
+<rect x="433" y="103" width="113" height="36" fill="#f0d9a0" stroke="#666"/>
+<rect x="465" y="141" width="34" height="18" fill="#d77a7a" stroke="#666"/>
+<circle cx="490" cy="150" r="3" fill="#e2708a"/>
+<text x="490" y="246" text-anchor="middle" fill="#666">上面: 黄=ATOMスタック (後方 19.1)、赤=パンサーボ</text>
+<text x="380" y="40" font-size="12" font-weight="bold">上面図</text>
+<text x="30" y="40" font-size="12" font-weight="bold">正面図</text>
 </svg>

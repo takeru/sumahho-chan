@@ -4,25 +4,25 @@
    "command": "solid.cylinder",
    "params": {
     "base": [
-     0,
-     0,
-     4
+     0.0,
+     0.0,
+     4.0
     ],
     "body_name": "BaseShell",
-    "diameter": 104,
-    "height": 36
+    "diameter": 104.0,
+    "height": 36.0
    }
   },
   {
    "command": "solid.cylinder",
    "params": {
     "base": [
-     0,
-     0,
-     4
+     0.0,
+     0.0,
+     4.0
     ],
-    "diameter": 100,
-    "height": 34,
+    "diameter": 100.0,
+    "height": 34.0,
     "operation": "cut"
    }
   },
@@ -30,12 +30,12 @@
    "command": "solid.cylinder",
    "params": {
     "base": [
-     0,
-     0,
-     35
+     0.0,
+     0.0,
+     35.0
     ],
-    "diameter": 40,
-    "height": 8,
+    "diameter": 40.0,
+    "height": 8.0,
     "operation": "cut"
    }
   },
@@ -43,12 +43,12 @@
    "command": "solid.cylinder",
    "params": {
     "base": [
-     32.53,
-     32.53,
-     4
+     8.49,
+     8.49,
+     4.0
     ],
-    "diameter": 9,
-    "height": 10,
+    "diameter": 9.0,
+    "height": 10.0,
     "operation": "join",
     "targets": [
      "BaseShell"
@@ -59,12 +59,12 @@
    "command": "solid.cylinder",
    "params": {
     "base": [
-     -32.53,
-     32.53,
-     4
+     8.49,
+     -8.49,
+     4.0
     ],
-    "diameter": 9,
-    "height": 10,
+    "diameter": 9.0,
+    "height": 10.0,
     "operation": "join",
     "targets": [
      "BaseShell"
@@ -75,12 +75,12 @@
    "command": "solid.cylinder",
    "params": {
     "base": [
-     32.53,
-     -32.53,
-     4
+     -8.49,
+     8.49,
+     4.0
     ],
-    "diameter": 9,
-    "height": 10,
+    "diameter": 9.0,
+    "height": 10.0,
     "operation": "join",
     "targets": [
      "BaseShell"
@@ -91,12 +91,12 @@
    "command": "solid.cylinder",
    "params": {
     "base": [
-     -32.53,
-     -32.53,
-     4
+     -8.49,
+     -8.49,
+     4.0
     ],
-    "diameter": 9,
-    "height": 10,
+    "diameter": 9.0,
+    "height": 10.0,
     "operation": "join",
     "targets": [
      "BaseShell"
@@ -107,12 +107,12 @@
    "command": "solid.cylinder",
    "params": {
     "base": [
-     32.53,
-     32.53,
-     0
+     8.49,
+     8.49,
+     0.0
     ],
     "diameter": 2.6,
-    "height": 16,
+    "height": 16.0,
     "operation": "cut"
    }
   },
@@ -120,12 +120,12 @@
    "command": "solid.cylinder",
    "params": {
     "base": [
-     -32.53,
-     32.53,
-     0
+     8.49,
+     -8.49,
+     0.0
     ],
     "diameter": 2.6,
-    "height": 16,
+    "height": 16.0,
     "operation": "cut"
    }
   },
@@ -133,12 +133,12 @@
    "command": "solid.cylinder",
    "params": {
     "base": [
-     32.53,
-     -32.53,
-     0
+     -8.49,
+     8.49,
+     0.0
     ],
     "diameter": 2.6,
-    "height": 16,
+    "height": 16.0,
     "operation": "cut"
    }
   },
@@ -146,12 +146,12 @@
    "command": "solid.cylinder",
    "params": {
     "base": [
-     -32.53,
-     -32.53,
-     0
+     -8.49,
+     -8.49,
+     0.0
     ],
     "diameter": 2.6,
-    "height": 16,
+    "height": 16.0,
     "operation": "cut"
    }
   },
@@ -159,28 +159,28 @@
    "command": "solid.box",
    "params": {
     "corner": [
-     -54,
-     -25,
-     8
+     -54.0,
+     -25.0,
+     8.0
     ],
-    "height": 12,
-    "length": 8,
+    "height": 12.0,
+    "length": 8.0,
     "operation": "cut",
-    "width": 12
+    "width": 12.0
    }
   },
   {
    "command": "solid.box",
    "params": {
     "corner": [
-     -7,
-     -53,
-     24
+     -7.0,
+     -53.0,
+     24.0
     ],
-    "length": 14,
-    "width": 6,
-    "height": 8,
-    "operation": "cut"
+    "height": 8.0,
+    "length": 14.0,
+    "operation": "cut",
+    "width": 6.0
    }
   }
  ]
