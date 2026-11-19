@@ -111,8 +111,8 @@ def build_bottom_plate():
                         size=[span[1] - span[0], D["saddle_wall_w"], D["flange_z"] - wall_z], op="join"))
     for s in (1, -1):
         ear_x = SERVO_CX + s * SV["ear_pitch"] / 2
-        cmds.append(box(corner=[ear_x - D["slot_l"] / 2, -D["slot_w"] / 2, D["flange_z"] - 2],
-                        size=[D["slot_l"], D["slot_w"], 4], op="cut"))
+        cmds.append(box(corner=[ear_x - D["slot_l"] / 2, -D["slot_w"] / 2, D["flange_z"] - 6],
+                        size=[D["slot_l"], D["slot_w"], 8], op="cut"))
     cmds.append(box(corner=[MB["l"] / 2 + 0.2, D["stack_z"] - MB["w"] / 2, D["plate_t"]],
                     size=[D["lip_t"], MB["w"], D["lip_h"]], op="join"))
     return script("BottomPlate", cmds)
@@ -155,8 +155,9 @@ def build_cheek(left):
         cmds.append(box(corner=[(D["cheek_t"] - D["channel_w"]) / 2, D["channel_y"][0], -CHEEK_DROP],
                         size=[D["channel_w"], D["channel_y"][1] - D["channel_y"][0], CHEEK_DROP + 2], op="cut"))
     else:
+        cmds.append(cyl(base=[-1, 0, 0], d=D["horn_cb_d"], h=D["horn_cb_depth"] + 1, axis="X", op="cut"))
         for (py, pz) in [(D["horn_pilot_r"], 0), (-D["horn_pilot_r"], 0), (0, D["horn_pilot_r"]), (0, -D["horn_pilot_r"])]:
-            cmds.append(cyl(base=[-1, py, pz], d=D["horn_pilot_d"], h=6, axis="X", op="cut"))
+            cmds.append(cyl(base=[D["horn_cb_depth"] - 0.5, py, pz], d=D["horn_pilot_d"], h=4, axis="X", op="cut"))
     return script(body, cmds)
 
 

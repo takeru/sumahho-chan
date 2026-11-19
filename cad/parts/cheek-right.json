@@ -94,11 +94,25 @@
     "axis": "X",
     "base": [
      -1.0,
+     0.0,
+     0.0
+    ],
+    "diameter": 21.0,
+    "height": 4.5,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "axis": "X",
+    "base": [
+     3.0,
      8.0,
      0.0
     ],
-    "diameter": 1.8,
-    "height": 6.0,
+    "diameter": 1.7,
+    "height": 4.0,
     "operation": "cut"
    }
   },
@@ -107,12 +121,12 @@
    "params": {
     "axis": "X",
     "base": [
-     -1.0,
+     3.0,
      -8.0,
      0.0
     ],
-    "diameter": 1.8,
-    "height": 6.0,
+    "diameter": 1.7,
+    "height": 4.0,
     "operation": "cut"
    }
   },
@@ -121,12 +135,12 @@
    "params": {
     "axis": "X",
     "base": [
-     -1.0,
+     3.0,
      0.0,
      8.0
     ],
-    "diameter": 1.8,
-    "height": 6.0,
+    "diameter": 1.7,
+    "height": 4.0,
     "operation": "cut"
    }
   },
@@ -135,12 +149,12 @@
    "params": {
     "axis": "X",
     "base": [
-     -1.0,
+     3.0,
      0.0,
      -8.0
     ],
-    "diameter": 1.8,
-    "height": 6.0,
+    "diameter": 1.7,
+    "height": 4.0,
     "operation": "cut"
    }
   }

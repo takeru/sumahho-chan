@@ -160,13 +160,13 @@
    "params": {
     "corner": [
      -54.0,
-     -25.0,
-     8.0
+     -26.0,
+     23.5
     ],
     "height": 12.0,
     "length": 8.0,
     "operation": "cut",
-    "width": 12.0
+    "width": 14.0
    }
   },
   {

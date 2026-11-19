@@ -137,28 +137,28 @@
    "command": "solid.box",
    "params": {
     "corner": [
-     6.55,
-     -1.1,
-     23.25
+     5.55,
+     -0.8,
+     19.25
     ],
-    "height": 4.0,
-    "length": 4.4,
+    "height": 8.0,
+    "length": 6.4,
     "operation": "cut",
-    "width": 2.2
+    "width": 1.6
    }
   },
   {
    "command": "solid.box",
    "params": {
     "corner": [
-     -21.95,
-     -1.1,
-     23.25
+     -22.95,
+     -0.8,
+     19.25
     ],
-    "height": 4.0,
-    "length": 4.4,
+    "height": 8.0,
+    "length": 6.4,
     "operation": "cut",
-    "width": 2.2
+    "width": 1.6
    }
   },
   {

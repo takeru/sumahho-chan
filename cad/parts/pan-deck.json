@@ -50,7 +50,7 @@
      0.0,
      -11.0
     ],
-    "diameter": 2.2,
+    "diameter": 1.7,
     "height": 6.0,
     "operation": "cut"
    }
@@ -63,7 +63,7 @@
      0.0,
      -11.0
     ],
-    "diameter": 2.2,
+    "diameter": 1.7,
     "height": 6.0,
     "operation": "cut"
    }
@@ -76,7 +76,7 @@
      10.0,
      -11.0
     ],
-    "diameter": 2.2,
+    "diameter": 1.7,
     "height": 6.0,
     "operation": "cut"
    }
@@ -89,7 +89,7 @@
      -10.0,
      -11.0
     ],
-    "diameter": 2.2,
+    "diameter": 1.7,
     "height": 6.0,
     "operation": "cut"
    }
