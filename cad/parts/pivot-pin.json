@@ -1,0 +1,52 @@
+{
+ "commands": [
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "axis": "X",
+    "base": [
+     -2.5,
+     0.0,
+     0.0
+    ],
+    "body_name": "PivotPin",
+    "diameter": 12.0,
+    "height": 2.5
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "axis": "X",
+    "base": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "diameter": 8.0,
+    "height": 18.0,
+    "operation": "join",
+    "targets": [
+     "PivotPin"
+    ]
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "axis": "X",
+    "base": [
+     -3.5,
+     0.0,
+     0.0
+    ],
+    "diameter": 5.0,
+    "height": 22.5,
+    "operation": "cut",
+    "targets": [
+     "PivotPin"
+    ]
+   }
+  }
+ ]
+}

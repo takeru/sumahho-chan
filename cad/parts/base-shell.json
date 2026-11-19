@@ -23,7 +23,10 @@
     ],
     "diameter": 100.0,
     "height": 34.0,
-    "operation": "cut"
+    "operation": "cut",
+    "targets": [
+     "BaseShell"
+    ]
    }
   },
   {
@@ -36,20 +39,7 @@
     ],
     "diameter": 40.0,
     "height": 8.0,
-    "operation": "cut"
-   }
-  },
-  {
-   "command": "solid.cylinder",
-   "params": {
-    "base": [
-     8.49,
-     8.49,
-     4.0
-    ],
-    "diameter": 9.0,
-    "height": 10.0,
-    "operation": "join",
+    "operation": "cut",
     "targets": [
      "BaseShell"
     ]
@@ -59,13 +49,145 @@
    "command": "solid.cylinder",
    "params": {
     "base": [
-     8.49,
-     -8.49,
+     46.0,
+     0.0,
      4.0
     ],
     "diameter": 9.0,
-    "height": 10.0,
+    "height": 34.0,
     "operation": "join",
+    "targets": [
+     "BaseShell"
+    ]
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     46.0,
+     -4.5,
+     4.0
+    ],
+    "height": 34.0,
+    "length": 5.0,
+    "operation": "join",
+    "targets": [
+     "BaseShell"
+    ],
+    "width": 9.0
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     0.0,
+     46.0,
+     4.0
+    ],
+    "diameter": 9.0,
+    "height": 34.0,
+    "operation": "join",
+    "targets": [
+     "BaseShell"
+    ]
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     -4.5,
+     46.0,
+     4.0
+    ],
+    "height": 34.0,
+    "length": 9.0,
+    "operation": "join",
+    "targets": [
+     "BaseShell"
+    ],
+    "width": 5.0
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     -46.0,
+     0.0,
+     4.0
+    ],
+    "diameter": 9.0,
+    "height": 34.0,
+    "operation": "join",
+    "targets": [
+     "BaseShell"
+    ]
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     -51.0,
+     -4.5,
+     4.0
+    ],
+    "height": 34.0,
+    "length": 5.0,
+    "operation": "join",
+    "targets": [
+     "BaseShell"
+    ],
+    "width": 9.0
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     0.0,
+     -46.0,
+     4.0
+    ],
+    "diameter": 9.0,
+    "height": 34.0,
+    "operation": "join",
+    "targets": [
+     "BaseShell"
+    ]
+   }
+  },
+  {
+   "command": "solid.box",
+   "params": {
+    "corner": [
+     -4.5,
+     -51.0,
+     4.0
+    ],
+    "height": 34.0,
+    "length": 9.0,
+    "operation": "join",
+    "targets": [
+     "BaseShell"
+    ],
+    "width": 5.0
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     46.0,
+     0.0,
+     0.0
+    ],
+    "diameter": 2.6,
+    "height": 16.0,
+    "operation": "cut",
     "targets": [
      "BaseShell"
     ]
@@ -75,13 +197,13 @@
    "command": "solid.cylinder",
    "params": {
     "base": [
-     -8.49,
-     8.49,
-     4.0
+     0.0,
+     46.0,
+     0.0
     ],
-    "diameter": 9.0,
-    "height": 10.0,
-    "operation": "join",
+    "diameter": 2.6,
+    "height": 16.0,
+    "operation": "cut",
     "targets": [
      "BaseShell"
     ]
@@ -91,13 +213,13 @@
    "command": "solid.cylinder",
    "params": {
     "base": [
-     -8.49,
-     -8.49,
-     4.0
+     -46.0,
+     0.0,
+     0.0
     ],
-    "diameter": 9.0,
-    "height": 10.0,
-    "operation": "join",
+    "diameter": 2.6,
+    "height": 16.0,
+    "operation": "cut",
     "targets": [
      "BaseShell"
     ]
@@ -107,52 +229,16 @@
    "command": "solid.cylinder",
    "params": {
     "base": [
-     8.49,
-     8.49,
+     0.0,
+     -46.0,
      0.0
     ],
     "diameter": 2.6,
     "height": 16.0,
-    "operation": "cut"
-   }
-  },
-  {
-   "command": "solid.cylinder",
-   "params": {
-    "base": [
-     8.49,
-     -8.49,
-     0.0
-    ],
-    "diameter": 2.6,
-    "height": 16.0,
-    "operation": "cut"
-   }
-  },
-  {
-   "command": "solid.cylinder",
-   "params": {
-    "base": [
-     -8.49,
-     8.49,
-     0.0
-    ],
-    "diameter": 2.6,
-    "height": 16.0,
-    "operation": "cut"
-   }
-  },
-  {
-   "command": "solid.cylinder",
-   "params": {
-    "base": [
-     -8.49,
-     -8.49,
-     0.0
-    ],
-    "diameter": 2.6,
-    "height": 16.0,
-    "operation": "cut"
+    "operation": "cut",
+    "targets": [
+     "BaseShell"
+    ]
    }
   },
   {
@@ -164,8 +250,11 @@
      23.5
     ],
     "height": 12.0,
-    "length": 8.0,
+    "length": 12.29,
     "operation": "cut",
+    "targets": [
+     "BaseShell"
+    ],
     "width": 14.0
    }
   },
@@ -173,14 +262,17 @@
    "command": "solid.box",
    "params": {
     "corner": [
-     -7.0,
+     9.0,
      -53.0,
      24.0
     ],
     "height": 8.0,
     "length": 14.0,
     "operation": "cut",
-    "width": 6.0
+    "targets": [
+     "BaseShell"
+    ],
+    "width": 9.6
    }
   }
  ]
