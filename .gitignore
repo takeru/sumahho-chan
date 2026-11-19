@@ -1,0 +1,5 @@
+# SolidCraft の生成物 (build.py が毎回作り直す)
+cad/**/*.stl
+cad/**/*.sc
+*.bak
+__pycache__/
