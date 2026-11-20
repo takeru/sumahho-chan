@@ -6,12 +6,29 @@
     "body_name": "CheekR",
     "corner": [
      0.0,
-     -15.0,
+     -12.0,
      -68.0
     ],
-    "height": 83.0,
+    "height": 80.0,
     "length": 8.0,
-    "width": 35.0
+    "width": 32.0
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "axis": "X",
+    "base": [
+     0.0,
+     0.0,
+     0.0
+    ],
+    "diameter": 24.0,
+    "height": 8.0,
+    "operation": "join",
+    "targets": [
+     "CheekR"
+    ]
    }
   },
   {
@@ -19,82 +36,16 @@
    "params": {
     "corner": [
      -4.0,
-     -15.0,
+     -12.0,
      -68.0
     ],
     "height": 4.0,
-    "length": 12.0,
+    "length": 16.0,
     "operation": "join",
     "targets": [
      "CheekR"
     ],
-    "width": 35.0
-   }
-  },
-  {
-   "command": "solid.box",
-   "params": {
-    "corner": [
-     0.0,
-     20.0,
-     -68.0
-    ],
-    "height": 4.0,
-    "length": 8.0,
-    "operation": "join",
-    "targets": [
-     "CheekR"
-    ],
-    "width": 8.0
-   }
-  },
-  {
-   "command": "solid.box",
-   "params": {
-    "corner": [
-     8.0,
-     1.0,
-     -68.0
-    ],
-    "height": 4.0,
-    "length": 7.0,
-    "operation": "join",
-    "targets": [
-     "CheekR"
-    ],
-    "width": 19.0
-   }
-  },
-  {
-   "command": "solid.cylinder",
-   "params": {
-    "base": [
-     4.0,
-     24.0,
-     -69.0
-    ],
-    "diameter": 3.4,
-    "height": 6.0,
-    "operation": "cut",
-    "targets": [
-     "CheekR"
-    ]
-   }
-  },
-  {
-   "command": "solid.cylinder",
-   "params": {
-    "base": [
-     11.5,
-     9.0,
-     -69.0
-    ],
-    "diameter": 3.4,
-    "height": 6.0,
-    "operation": "cut",
-    "targets": [
-     "CheekR"
-    ]
+    "width": 32.0
    }
   },
   {
@@ -108,10 +59,33 @@
     ],
     "diameter": 12.2,
     "height": 12.0,
-    "operation": "cut",
-    "targets": [
-     "CheekR"
-    ]
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     4.0,
+     -6.0,
+     -70.0
+    ],
+    "diameter": 3.4,
+    "height": 8.0,
+    "operation": "cut"
+   }
+  },
+  {
+   "command": "solid.cylinder",
+   "params": {
+    "base": [
+     4.0,
+     14.0,
+     -70.0
+    ],
+    "diameter": 3.4,
+    "height": 8.0,
+    "operation": "cut"
    }
   },
   {
@@ -125,10 +99,7 @@
     ],
     "diameter": 21.0,
     "height": 4.5,
-    "operation": "cut",
-    "targets": [
-     "CheekR"
-    ]
+    "operation": "cut"
    }
   },
   {
@@ -142,10 +113,7 @@
     ],
     "diameter": 1.7,
     "height": 4.0,
-    "operation": "cut",
-    "targets": [
-     "CheekR"
-    ]
+    "operation": "cut"
    }
   },
   {
@@ -159,10 +127,7 @@
     ],
     "diameter": 1.7,
     "height": 4.0,
-    "operation": "cut",
-    "targets": [
-     "CheekR"
-    ]
+    "operation": "cut"
    }
   },
   {
@@ -176,10 +141,7 @@
     ],
     "diameter": 1.7,
     "height": 4.0,
-    "operation": "cut",
-    "targets": [
-     "CheekR"
-    ]
+    "operation": "cut"
    }
   },
   {
@@ -193,10 +155,7 @@
     ],
     "diameter": 1.7,
     "height": 4.0,
-    "operation": "cut",
-    "targets": [
-     "CheekR"
-    ]
+    "operation": "cut"
    }
   }
  ]
